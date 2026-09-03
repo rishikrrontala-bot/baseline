@@ -34,13 +34,16 @@ export default function RatingScale({
       </div>
 
       {/* Wraps to two rows on narrow screens rather than shrinking targets
-          below what someone with a headache can reliably hit. */}
-      <div className="flex flex-wrap gap-[3px]">
+          below what someone with a headache can reliably hit — as a grid, so
+          the wrapped steps keep the same width as the ones above them. A
+          severity scale whose last steps are visually wider is a scale that
+          misreports its own intervals. */}
+      <div className="grid grid-cols-6 gap-[3px] sm:grid-cols-11">
         {Array.from({ length: 11 }, (_, n) => {
           const active = value !== null && n <= value;
           const selected = value === n;
           return (
-            <label key={n} className="group relative flex-1 cursor-pointer" style={{ minWidth: 34 }}>
+            <label key={n} className="group relative cursor-pointer">
               {/* The input is visually hidden but focusable; `peer` carries its
                   focus state to the segment, because a focus ring painted on a
                   1px-clipped element is a focus ring nobody can see. */}

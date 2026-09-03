@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-02T00:00:00.000Z",
+  "title": "Design System: Baseline",
+  "extensions": {
+    "colorMeta": {
+      "terra": {
+        "role": "primary",
+        "displayName": "Terracotta",
+        "canonical": "#C4491F",
+        "tonalRamp": ["#2B0F05", "#4A1A08", "#6B270D", "#8E3413", "#C4491F", "#D9744F", "#E9A88E", "#F7DCD1"]
+      },
+      "calm-amber": {
+        "role": "primary",
+        "displayName": "Muted Amber",
+        "canonical": "#B8794A",
+        "tonalRamp": ["#2A1A0F", "#452C19", "#623F24", "#8A5931", "#B8794A", "#CD9B76", "#E1BFA4", "#F3E3D5"]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Blush Paper",
+        "canonical": "#EFE7E2",
+        "tonalRamp": ["#221D1A", "#3B332E", "#564C45", "#786D65", "#9C918A", "#C0B5AE", "#EFE7E2", "#F9F4F1"]
+      },
+      "paper-deep": {
+        "role": "neutral",
+        "displayName": "Paper Deep",
+        "canonical": "#E4DAD4",
+        "tonalRamp": ["#211B18", "#39312C", "#534843", "#75685F", "#998A81", "#BCADA4", "#E4DAD4", "#F4EEEA"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#16110F",
+        "tonalRamp": ["#16110F", "#2E2724", "#463C37", "#5F534C", "#7A6C64", "#9C8F87", "#C3B8B1", "#E8E1DD"]
+      },
+      "ash": {
+        "role": "neutral",
+        "displayName": "Ash",
+        "canonical": "#6A615B",
+        "tonalRamp": ["#191614", "#2C2825", "#413B37", "#554D48", "#6A615B", "#8D847D", "#B3ABA4", "#DAD4CF"]
+      },
+      "calm-paper": {
+        "role": "neutral",
+        "displayName": "Dim Ground",
+        "canonical": "#12100F",
+        "tonalRamp": ["#12100F", "#221F1D", "#33302D", "#46413E", "#5B5551", "#786F6A", "#9E948D", "#CBC2BB"]
+      },
+      "calm-paper-deep": {
+        "role": "neutral",
+        "displayName": "Dim Raise",
+        "canonical": "#1B1817",
+        "tonalRamp": ["#100E0D", "#1B1817", "#2E2A28", "#423C39", "#57504C", "#746C67", "#9C938C", "#C9C1BA"]
+      },
+      "calm-ink": {
+        "role": "neutral",
+        "displayName": "Dim Ink",
+        "canonical": "#C9BFB6",
+        "tonalRamp": ["#1E1A16", "#332D28", "#4A423B", "#63594F", "#7F7367", "#9E9186", "#C9BFB6", "#EBE4DE"]
+      },
+      "calm-ash": {
+        "role": "neutral",
+        "displayName": "Dim Ash",
+        "canonical": "#8A807A",
+        "tonalRamp": ["#1C1917", "#302C29", "#45403C", "#5B544F", "#726A65", "#8A807A", "#B0A8A2", "#D8D2CE"]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "rgba(22, 17, 15, 0.16)",
+        "tonalRamp": []
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Control Boundary",
+        "canonical": "rgba(22, 17, 15, 0.55)",
+        "tonalRamp": []
+      },
+      "calm-line": {
+        "role": "neutral",
+        "displayName": "Dim Hairline",
+        "canonical": "rgba(201, 191, 182, 0.20)",
+        "tonalRamp": []
+      },
+      "calm-line-strong": {
+        "role": "neutral",
+        "displayName": "Dim Control Boundary",
+        "canonical": "rgba(201, 191, 182, 0.55)",
+        "tonalRamp": []
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The room name or the single claim. One per screen. Carries an explicit opsz axis: 28 below 768px, 96 at and above, because Bodoni's hairlines are fragile at small heading sizes."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "The sentence directly beneath a display line, and the threshold's three statements."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Prose, instructions, list items, table row headers. Coloured ash by default; measures capped at 44-58ch."
+      },
+      "action": {
+        "displayName": "Action",
+        "purpose": "Every control label without exception, in both luminance worlds. Archivo 500."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Measured values, counts, room names in the progress nav, table captions, scale anchors. Tabular numerals so columns of numbers align."
+      }
+    },
+    "shadows": [
+      {
+        "name": "state-ring-inset",
+        "value": "inset 0 0 0 2px var(--paper)",
+        "purpose": "The only box-shadow in the system, and it is not elevation. Marks the selected rating segment in the room's own ground, because ink on the amber fill measures 1.98:1, under the 3:1 floor for a control's state indicator."
+      }
+    ],
+    "motion": [
+      {
+        "name": "room-dimming",
+        "value": "background-color 900ms cubic-bezier(0.16, 1, 0.3, 1), color 900ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "On <body> only. The announced crossing between the bright and dim worlds. The single transition exempt from the dim world's motion kill."
+      },
+      {
+        "name": "control-colour",
+        "value": "300ms colour transition on border-color and color",
+        "purpose": "Bordered and quiet button hover in the bright world. Forced to 0.001ms inside the dim world."
+      },
+      {
+        "name": "ease-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The system's only decelerating ease; used by the room dimming."
+      },
+      {
+        "name": "ease-power",
+        "value": "cubic-bezier(0.65, 0, 0.35, 1)",
+        "purpose": "Declared in tailwind.config.js as the symmetric alternative."
+      },
+      {
+        "name": "motion-kill-dim",
+        "value": ":root[data-room='calm'] *:not(body), ::before, ::after { animation-duration: 0.001ms; animation-iteration-count: 1; transition-duration: 0.001ms }",
+        "purpose": "The dim world forces reduced motion on regardless of the OS setting. Motion sensitivity is a symptom here, not a preference."
+      },
+      {
+        "name": "stimulus-canvas",
+        "value": "requestAnimationFrame draw loop on <canvas>",
+        "purpose": "The one licensed motion in the dim world: the task stimulus is the measurement. Always user-initiated, always stoppable, drawn to canvas so position is exact per frame rather than interpolated by CSS."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Bordered Action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single forward action in a dim room, pinned to the footer band.",
+      "html": "<button class=\"ds-btn-bordered\" type=\"button\">Print this for a clinician</button>",
+      "css": ".ds-btn-bordered { font-family: 'Archivo', Helvetica, Arial, sans-serif; font-weight: 500; font-size: clamp(14px, 1.05vw, 16px); letter-spacing: 0.005em; line-height: 1.2; color: var(--ink, #C9BFB6); background: transparent; border: 1px solid var(--line-strong, rgba(201,191,182,0.55)); border-radius: 0; padding: 16px 24px; cursor: pointer; transition: color 300ms, border-color 300ms; } .ds-btn-bordered:hover { border-color: var(--terra, #B8794A); color: var(--terra, #B8794A); } .ds-btn-bordered:focus-visible { outline: 2px solid var(--terra, #B8794A); outline-offset: 4px; border-radius: 2px; } .ds-btn-bordered:disabled { opacity: 0.4; cursor: default; }"
+    },
+    {
+      "name": "Quiet Action",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "The shape of Stop, Skip, and every reversal. Always visible, never bordered.",
+      "html": "<button class=\"ds-btn-quiet\" type=\"button\">Stop</button>",
+      "css": ".ds-btn-quiet { font-family: 'Archivo', Helvetica, Arial, sans-serif; font-weight: 500; font-size: clamp(14px, 1.05vw, 16px); letter-spacing: 0.005em; line-height: 1.2; color: var(--ash, #8A807A); background: none; border: 0; padding: 0; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; transition: color 300ms; } .ds-btn-quiet:hover { color: var(--ink, #C9BFB6); } .ds-btn-quiet:focus-visible { outline: 2px solid var(--terra, #B8794A); outline-offset: 4px; border-radius: 2px; }"
+    },
+    {
+      "name": "Circular Forward Affordance",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The landing's one way onward. The only circle in the system.",
+      "html": "<button class=\"ds-btn-circle-group\" type=\"button\"><span class=\"ds-btn-circle-label\">Begin screening</span><span class=\"ds-btn-circle\"><svg width=\"13\" height=\"13\" viewBox=\"0 0 13 13\" fill=\"none\" aria-hidden=\"true\"><path d=\"M1 12L12 1M12 1H4M12 1v8\" stroke=\"currentColor\" stroke-width=\"1.2\"/></svg></span></button>",
+      "css": ".ds-btn-circle-group { display: flex; align-items: center; gap: 16px; background: none; border: 0; padding: 0; cursor: pointer; color: var(--ink, #16110F); } .ds-btn-circle-label { font-family: 'Archivo', Helvetica, Arial, sans-serif; font-weight: 500; font-size: clamp(14px, 1.05vw, 16px); letter-spacing: 0.005em; transition: opacity 500ms; } .ds-btn-circle { display: grid; place-items: center; height: 48px; width: 48px; border-radius: 9999px; border: 1px solid var(--line-strong, rgba(22,17,15,0.55)); transition: background-color 500ms, border-color 500ms, color 500ms; } .ds-btn-circle-group:hover .ds-btn-circle-label { opacity: 0.6; } .ds-btn-circle-group:hover .ds-btn-circle { border-color: var(--terra, #C4491F); background: var(--terra, #C4491F); color: var(--paper, #EFE7E2); } .ds-btn-circle-group:focus-visible { outline: 2px solid var(--terra, #C4491F); outline-offset: 4px; border-radius: 2px; }"
+    },
+    {
+      "name": "Rating Scale Segment",
+      "kind": "custom",
+      "refersTo": "rating-segment",
+      "description": "One of eleven discrete 0-10 targets. Discrete blocks rather than a slider, because dragging a thumb is a fine motor task.",
+      "html": "<div class=\"ds-rating\"><label class=\"ds-rating-seg\"><input type=\"radio\" name=\"ds-demo\" class=\"ds-rating-input\"><span class=\"ds-rating-block ds-is-active\" aria-hidden=\"true\"></span><span class=\"ds-rating-num\">0</span></label><label class=\"ds-rating-seg\"><input type=\"radio\" name=\"ds-demo\" checked class=\"ds-rating-input\"><span class=\"ds-rating-block ds-is-active ds-is-selected\" aria-hidden=\"true\"></span><span class=\"ds-rating-num\"></span></label><label class=\"ds-rating-seg\"><input type=\"radio\" name=\"ds-demo\" class=\"ds-rating-input\"><span class=\"ds-rating-block\" aria-hidden=\"true\"></span><span class=\"ds-rating-num\"></span></label></div>",
+      "css": ".ds-rating { display: flex; flex-wrap: wrap; gap: 3px; } .ds-rating-seg { position: relative; flex: 1; min-width: 34px; cursor: pointer; } .ds-rating-input { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); } .ds-rating-block { display: block; height: 44px; border: 1px solid var(--line-strong, rgba(201,191,182,0.55)); background: transparent; border-radius: 0; transition: border-color 200ms; } .ds-rating-block.ds-is-active { background: var(--terra, #B8794A); border-color: var(--terra, #B8794A); } .ds-rating-block.ds-is-selected { border-color: var(--paper, #12100F); box-shadow: inset 0 0 0 2px var(--paper, #12100F); } .ds-rating-seg:hover .ds-rating-block { border-color: var(--terra, #B8794A); } .ds-rating-input:focus-visible + .ds-rating-block { outline: 2px solid var(--terra, #B8794A); outline-offset: 2px; } .ds-rating-num { display: block; margin-top: 4px; text-align: center; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: clamp(12px, 0.78vw, 13px); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ash, #8A807A); }"
+    },
+    {
+      "name": "Room Progress Nav",
+      "kind": "nav",
+      "refersTo": "room-nav-item",
+      "description": "Which room you are standing in. Navigation, not a label on the heading. Never truncates; wraps.",
+      "html": "<nav aria-label=\"Screening progress\" class=\"ds-nav\"><ol class=\"ds-nav-list\"><li><span class=\"ds-nav-item\">Prepare</span></li><li><span class=\"ds-nav-item ds-is-here\" aria-current=\"step\">Screen</span></li><li><span class=\"ds-nav-item\">Findings</span></li></ol></nav>",
+      "css": ".ds-nav-list { display: flex; flex-wrap: wrap; align-items: center; column-gap: 20px; row-gap: 8px; list-style: none; margin: 0; padding: 0; } .ds-nav-item { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: clamp(12px, 0.78vw, 13px); letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.45; color: var(--ash, #8A807A); } .ds-nav-item.ds-is-here { color: var(--terra, #B8794A); }"
+    },
+    {
+      "name": "Findings Row",
+      "kind": "card",
+      "refersTo": "room-nav-item",
+      "description": "One measured task and its result. Hairline separated, never boxed; the result is always stated in words as well as in colour.",
+      "html": "<table class=\"ds-table\"><caption class=\"ds-table-caption\">Provocation is a rise of 2+ points over your pre-test rating</caption><tbody><tr class=\"ds-table-row\"><th scope=\"row\" class=\"ds-table-head\">Smooth pursuit</th><td class=\"ds-table-cell\"><span class=\"ds-flag\">Provoked +3</span></td></tr><tr class=\"ds-table-row\"><th scope=\"row\" class=\"ds-table-head\">Horizontal saccades</th><td class=\"ds-table-cell\">No rise</td></tr></tbody></table>",
+      "css": ".ds-table { width: 100%; border-collapse: collapse; } .ds-table-caption { text-align: left; margin-bottom: 12px; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: clamp(12px, 0.78vw, 13px); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ash, #8A807A); } .ds-table-row { border-bottom: 1px solid var(--line, rgba(201,191,182,0.20)); } .ds-table-head { font-family: 'Archivo', Helvetica, Arial, sans-serif; font-weight: 400; font-size: clamp(15px, 1.05vw, 17px); line-height: 1.62; text-align: left; padding: 12px 16px 12px 0; color: var(--ink, #C9BFB6); } .ds-table-cell { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: clamp(12px, 0.78vw, 13px); letter-spacing: 0.12em; text-transform: uppercase; font-variant-numeric: tabular-nums; text-align: right; padding: 12px 0; color: var(--ash, #8A807A); } .ds-flag { color: var(--terra, #B8794A); }"
+    },
+    {
+      "name": "Threshold Panel",
+      "kind": "custom",
+      "refersTo": "button-primary",
+      "description": "The announced crossing into the dim world. The only modal surface in the system, and always skippable.",
+      "html": "<section class=\"ds-threshold\" role=\"dialog\" aria-modal=\"true\" aria-label=\"Entering the screening\"><div class=\"ds-threshold-col\"><ul class=\"ds-threshold-lines\"><li>Dimming the room.</li><li>Stopping all motion.</li><li>Nothing you do here leaves this device.</li></ul><p class=\"ds-threshold-body\">Light sensitivity and motion sensitivity are two of the things this screening measures.</p><div class=\"ds-threshold-actions\"><button class=\"ds-btn-bordered\" type=\"button\">Go on</button><button class=\"ds-btn-quiet\" type=\"button\">Skip this</button></div></div></section>",
+      "css": ".ds-threshold { display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--paper, #12100F); padding: 48px 24px; } .ds-threshold-col { width: 100%; max-width: 46ch; } .ds-threshold-lines { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; font-family: 'Archivo', Helvetica, Arial, sans-serif; font-size: clamp(18px, 1.85vw, 27px); line-height: 1.35; letter-spacing: -0.014em; color: var(--ink, #C9BFB6); } .ds-threshold-body { margin-top: 32px; max-width: 52ch; font-family: 'Archivo', Helvetica, Arial, sans-serif; font-size: clamp(15px, 1.05vw, 17px); line-height: 1.62; color: var(--ash, #8A807A); } .ds-threshold-actions { margin-top: 40px; display: flex; flex-wrap: wrap; align-items: center; column-gap: 32px; row-gap: 16px; }"
+    },
+    {
+      "name": "Room Heading",
+      "kind": "custom",
+      "refersTo": "room-nav-item",
+      "description": "The display voice. One per screen, capped at 26ch, with an explicit optical size axis.",
+      "html": "<h1 class=\"ds-display\">Your eyes <em class=\"ds-display-it\">don’t</em> hide it</h1>",
+      "css": ".ds-display { font-family: 'Bodoni Moda', Didot, 'Bodoni MT', Georgia, serif; font-variation-settings: 'opsz' 28; font-weight: 400; line-height: 0.94; letter-spacing: -0.015em; font-size: clamp(30px, 4vw, 58px); max-width: 26ch; text-wrap: balance; margin: 0; color: var(--ink, #C9BFB6); } .ds-display-it { font-style: italic; } @media (min-width: 768px) { .ds-display { font-variation-settings: 'opsz' 96; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Engraved Plate and the Dimmed Room",
+    "overview": "Two luminance worlds share one building. The bright world is blush paper under grain and a soft vignette, with a high-contrast didone display face — the letterform of engraved anatomical plates — set enormous and light. The dim world is the same architecture with every value swapped at :root[data-room='calm']: a near-black ground, a warm grey ink, and amber where terracotta stood. Nothing about the layout changes when you cross; only the luminance does, and the crossing is stated out loud before it happens.\n\nThe system is flat and unfurnished. There are no cards, no gradients, no shadows, no fills that are not either the page ground or a state indicator. Structure is carried by hairline rules, generous negative space, and a rigid three-band room frame: name at the top, one job in the centre at instrument scale, one way onward at the bottom. Density is low on purpose — every room holds exactly one thing to do, and the measure of a room is how little competes with it.\n\nAccessibility is not a layer on top of this world; it is the reason the world has the shape it does. The dim world exists because photophobia is one of the symptoms being measured. Motion is dead in the dim world because motion sensitivity is another. These are recorded as named rules, not as footnotes.",
+    "keyCharacteristics": [
+      "Two complete luminance worlds, one token set, switched on <html data-room>",
+      "Zero shadows, zero gradients, zero cards; hairlines and whitespace do all structural work",
+      "Square corners everywhere except one circular affordance and the 2px focus ring",
+      "A didone display voice against Archivo controls and JetBrains Mono micro-labels",
+      "Motion is absent by default and licensed only for the measurement stimulus",
+      "A third world for print: plain black on white, all controls dropped"
+    ],
+    "rules": [
+      {
+        "name": "The Two Worlds, One Set Rule",
+        "body": "There is one token vocabulary. The dim world is not a second palette but a complete override of the same names under :root[data-room='calm'], and print is a third. A component never branches on world; it reads var(--ink), var(--paper), var(--terra) and is correct in all three.",
+        "section": "colors"
+      },
+      {
+        "name": "The Luminance Cap Rule",
+        "body": "No surface in the dim world is lighter than calm-ink (#C9BFB6) and no surface anywhere on screen is #FFFFFF. Pure white and large light fields are what the instrument is measuring sensitivity to; the interface does not get to introduce them.",
+        "section": "colors"
+      },
+      {
+        "name": "The Control Boundary Rule",
+        "body": "--line is decoration and exempt from contrast requirements; --line-strong is the boundary of anything operable and clears 3:1 against its ground in both worlds, satisfying WCAG 2.2 SC 1.4.11. Never draw an interactive edge with --line.",
+        "section": "colors"
+      },
+      {
+        "name": "The Never-Colour-Alone Rule",
+        "body": "No state, severity, or result is carried by colour alone. A provoked task is terracotta and reads \"Provoked +3\"; a selected rating segment is filled and carries a 2px inset ring in the room's own ground and the numeric value is printed beside the scale label. Terracotta on the amber fill measures 1.98:1 — below the 3:1 floor for a state indicator — which is why the ring is drawn in paper, not in ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The Optical Size Rule",
+        "body": "The display face carries its opsz axis explicitly: 28 below 768px, 96 at and above. Bodoni's hairlines are fragile at heading sizes on small screens, and the axis exists to solve exactly that. Never set the display face without declaring opsz.",
+        "section": "typography"
+      },
+      {
+        "name": "The Controls Speak Archivo Rule",
+        "body": "Every operable label is .t-action. Mono is never a button, and the display face is never a control.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Data Rule",
+        "body": "Anything measured — a delta, a centimetre reading, a count, a rating out of ten — is set in .t-mono with tabular numerals so columns of numbers align down the page. The shipped build also uses .t-mono for progress-nav room names, table captions, and small section headings; that chrome usage is the built system and is recorded as such, but the tabular-numeral rule is what makes mono earn its place.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Display Line Rule",
+        "body": "A screen gets one display-scale element. The landing's claim and each room's heading are the only display type in the artifact.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Room Rule",
+        "body": "Surfaces never lift. If something needs to read as separate, give it a hairline or give it space — never a shadow, never a card, never a gradient fill.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Grain Belongs to Daylight Rule",
+        "body": "Grain and vignette exist only in the bright world. Any atmospheric texture added later must carry the same :root[data-room='calm'] { display: none } suppression.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Still Room Rule",
+        "body": "In the dim world all animation and transition durations are forced to 0.001ms on every element except <body>, regardless of the OS setting — motion sensitivity is a symptom here, not a preference. The body's own 900ms cubic-bezier(0.16, 1, 0.3, 1) background and colour transition is exempt because it is the announced dimming.",
+        "section": "components"
+      },
+      {
+        "name": "The One Licensed Motion Rule",
+        "body": "The task stimulus is the only moving thing permitted in the dim world, because its movement is the measurement. It is always user-initiated and always stoppable. Nothing else — no spinner, no skeleton, no reveal, no parallax — may move in a dim room.",
+        "section": "components"
+      },
+      {
+        "name": "The Stop Is Never Hidden Rule",
+        "body": "The exit from the screening sits in the header band of every dim room at the same coordinates and is never behind a menu, a confirmation, or a scroll.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do read every colour through the token names (var(--ink), var(--paper), var(--terra), var(--line-strong)) so a component is automatically correct in the bright world, the dim world, and print.",
+      "Do draw the edge of anything operable with --line-strong and reserve --line for decorative hairlines.",
+      "Do state a result in words as well as in colour — \"Provoked +3\", \"Not answered\", \"No rise\".",
+      "Do set the display face with an explicit opsz (28 below 768px, 96 above) and only once per screen.",
+      "Do cap measures in ch (26ch headings, 44-58ch prose) and inset with the single --gutter token.",
+      "Do measure full-height rooms with calc(var(--vh, 1vh) * 100), never 100vh.",
+      "Do keep the room frame fixed — name at top, one job centred, one action pinned at the bottom — and change only the centre.",
+      "Do give controls a 44px minimum hit height and let them wrap rather than shrink."
+    ],
+    "donts": [
+      "Don't put #FFFFFF, a large light field, or an uncapped luminance anywhere on screen; white belongs to print only.",
+      "Don't animate anything in the dim world except the task stimulus. No spinners, no skeletons, no entrance reveals, no scroll effects.",
+      "Don't add a box-shadow for elevation, a gradient fill, or a card. Depth is a hairline, a tonal step, or space.",
+      "Don't carry meaning in colour alone, and don't paint a state indicator that fails 3:1 against its own fill.",
+      "Don't set a control label in mono or in the display face; controls are .t-action Archivo 500.",
+      "Don't carry grain or any high-frequency texture into the dim world.",
+      "Don't hide Stop, gate it behind a confirmation, or move it between rooms.",
+      "Don't round corners. Square is the default; the circular forward affordance and the 2px focus ring are the complete exception list."
+    ]
+  }
+}
