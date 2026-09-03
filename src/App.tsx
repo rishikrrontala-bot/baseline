@@ -12,14 +12,10 @@ import type { VomsTaskResult } from './lib/clinical/voms';
 export default function App() {
   useViewportUnit();
   const { room, go } = useRoom();
-  const [crossing, setCrossing] = useState(false);
   const [baseline, setBaseline] = useState<VomsRatings | null>(null);
   const [results, setResults] = useState<VomsTaskResult[]>([]);
 
-  const leave = () => {
-    setCrossing(false);
-    go('landing');
-  };
+  const leave = () => go('landing');
 
   return (
     <>
@@ -31,16 +27,9 @@ export default function App() {
       )}
 
       <main>
-        {room === 'landing' && !crossing && <Hero onEnter={() => setCrossing(true)} />}
+        {room === 'landing' && <Hero onEnter={() => go('threshold')} />}
 
-        {crossing && room === 'landing' && (
-          <Threshold
-            onDone={() => {
-              setCrossing(false);
-              go('prepare');
-            }}
-          />
-        )}
+        {room === 'threshold' && <Threshold onDone={() => go('prepare')} />}
 
         {room === 'prepare' && (
           <Prepare

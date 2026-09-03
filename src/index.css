@@ -10,6 +10,10 @@
     --ash: #7a716b;
     --terra: #c4491f;
     --line: rgba(22, 17, 15, 0.16);
+    /* Hairline rules are decoration and exempt from contrast rules; the edge
+       of a control is not. --line-strong clears 3:1 against its ground so
+       every interactive boundary satisfies WCAG 2.2 SC 1.4.11. */
+    --line-strong: rgba(22, 17, 15, 0.55);
     --gutter: clamp(20px, 4.5vw, 76px);
     --vh: 1vh;
     --grain-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
@@ -23,6 +27,7 @@
     --ash: #8a807a;
     --terra: #b8794a;
     --line: rgba(201, 191, 182, 0.20);
+    --line-strong: rgba(201, 191, 182, 0.55);
   }
 
   * { -webkit-tap-highlight-color: transparent; }
@@ -190,6 +195,7 @@
     --ash: #444444;
     --terra: #000000;
     --line: rgba(0, 0, 0, 0.32);
+    --line-strong: rgba(0, 0, 0, 0.6);
   }
 
   html,

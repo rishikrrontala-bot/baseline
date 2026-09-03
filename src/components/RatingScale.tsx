@@ -56,7 +56,7 @@ export default function RatingScale({
                 className="block h-9 border transition-colors duration-200 group-hover:border-[var(--terra)]"
                 style={{
                   background: active ? 'var(--terra)' : 'transparent',
-                  borderColor: selected ? 'var(--ink)' : active ? 'var(--terra)' : 'var(--line)',
+                  borderColor: selected ? 'var(--ink)' : active ? 'var(--terra)' : 'var(--line-strong)',
                 }}
               />
               {/* Only the anchors are labelled; eleven numerals under every

@@ -47,7 +47,7 @@ export default function Prepare({
             type="button"
             disabled={!allAnswered || !(cameraReady || demo)}
             onClick={() => onContinue(ratings as VomsRatings)}
-            className="t-mono border border-[var(--line)] px-6 py-4 text-calm-text transition-colors duration-300 enabled:hover:border-calm-amber enabled:hover:text-calm-amber disabled:opacity-40"
+            className="t-mono border border-[var(--line-strong)] px-6 py-4 text-calm-text transition-colors duration-300 enabled:hover:border-calm-amber enabled:hover:text-calm-amber disabled:opacity-40"
           >
             Start the seven tasks
           </button>

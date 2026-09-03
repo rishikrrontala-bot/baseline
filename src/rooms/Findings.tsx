@@ -39,7 +39,7 @@ export default function Findings({
           <button
             type="button"
             onClick={() => window.print()}
-            className="t-mono border border-[var(--line)] px-6 py-4 text-calm-text transition-colors duration-300 hover:border-[var(--terra)] hover:text-[var(--terra)]"
+            className="t-mono border border-[var(--line-strong)] px-6 py-4 text-calm-text transition-colors duration-300 hover:border-[var(--terra)] hover:text-[var(--terra)]"
           >
             Print this for a clinician
           </button>

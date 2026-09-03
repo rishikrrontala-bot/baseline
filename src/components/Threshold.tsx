@@ -79,7 +79,7 @@ export default function Threshold({ onDone }: { onDone: () => void }) {
             type="button"
             onClick={finish}
             disabled={!ready}
-            className="t-mono border border-[var(--line)] px-6 py-4 text-calm-text transition-colors duration-300 hover:border-calm-amber hover:text-calm-amber disabled:cursor-not-allowed"
+            className="t-mono border border-[var(--line-strong)] px-6 py-4 text-calm-text transition-colors duration-300 hover:border-calm-amber hover:text-calm-amber disabled:cursor-not-allowed"
           >
             Go on
           </button>

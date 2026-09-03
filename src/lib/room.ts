@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 
-export type Room = 'landing' | 'prepare' | 'screen' | 'findings';
+/* 'threshold' is a real room, not a transient flag: the dim tokens have to be
+   live *while* the crossing is on screen, or the threshold paints the dark
+   ground using the light world's hairline colour and its controls vanish. */
+export type Room = 'landing' | 'threshold' | 'prepare' | 'screen' | 'findings';
 
 /** The three named rooms, in the order they are walked. */
 export const SCREENING_ROOMS: readonly { id: Room; name: string; job: string }[] = [

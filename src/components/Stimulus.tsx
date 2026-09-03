@@ -104,7 +104,7 @@ export default function Stimulus({
 
   return (
     <div
-      className="relative w-full border border-[var(--line)]"
+      className="relative w-full border border-[var(--line-strong)]"
       style={{ height: 'clamp(200px, 34vh, 320px)' }}
     >
       <canvas ref={canvas} className="h-full w-full" aria-hidden="true" />

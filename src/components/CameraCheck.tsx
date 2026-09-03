@@ -49,7 +49,7 @@ export default function CameraCheck({
   return (
     <div>
       <div
-        className="relative w-full overflow-hidden border border-[var(--line)]"
+        className="relative w-full overflow-hidden border border-[var(--line-strong)]"
         style={{ aspectRatio: '16 / 9', background: 'var(--paper-deep)' }}
       >
         <video
