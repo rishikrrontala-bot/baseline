@@ -23,9 +23,6 @@ export default function Hero({ onEnter }: { onEnter: () => void }) {
       {/* ── The reason, with the instrument alongside ─────────────────────── */}
       <div className="mt-[clamp(28px,5vh,56px)] grid grid-cols-1 items-center gap-y-10 md:grid-cols-[1fr_auto] md:gap-x-[5vw]">
         <div className="max-w-[44ch]">
-          <p className="t-mono mb-5 text-ash">
-            Vestibular &amp; ocular-motor screening — Baseline v0.1
-          </p>
           <p className="t-lead text-ink">
             Symptoms are self-reported, and people under-report them to get back on the field, back in
             class, back to normal. Eye movement is harder to talk yourself out of.
@@ -55,6 +52,9 @@ export default function Hero({ onEnter }: { onEnter: () => void }) {
 
       {/* ── The ledger ───────────────────────────────────────────────────── */}
       <div className="mt-[clamp(30px,5vh,60px)]">
+        <p className="t-mono mb-4 text-ash">
+          Vestibular &amp; ocular-motor screening — Baseline v0.1
+        </p>
         <div className="rule mb-6 text-ink" />
         <div className="grid grid-cols-1 gap-x-[5vw] gap-y-7 lg:grid-cols-[1fr_auto] lg:items-start">
           <p className="t-body max-w-[58ch]">
