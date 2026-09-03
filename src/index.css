@@ -9,6 +9,7 @@
     --ink: #16110f;
     --ash: #7a716b;
     --terra: #c4491f;
+    --line: rgba(22, 17, 15, 0.16);
     --gutter: clamp(20px, 4.5vw, 76px);
     --vh: 1vh;
     --grain-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
@@ -21,6 +22,7 @@
     --ink: #c9bfb6;
     --ash: #8a807a;
     --terra: #b8794a;
+    --line: rgba(201, 191, 182, 0.20);
   }
 
   * { -webkit-tap-highlight-color: transparent; }
@@ -58,11 +60,16 @@
      The display voice is a high-contrast serif set large and light. This is
      the deliberate inversion of the portfolio's condensed uppercase Archivo:
      same grid discipline, opposite temperament. */
+  /* Didone, not the default editorial serif. The high-contrast modern face
+     is what engraved anatomical and scientific plates were set in, which is
+     the register this instrument belongs to — and its optical-size axis lets
+     the display cut thin its hairlines without the body text following. */
   .t-display {
-    font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+    font-family: 'Bodoni Moda', Didot, 'Bodoni MT', Georgia, serif;
+    font-variation-settings: 'opsz' 96;
     font-weight: 400;
-    line-height: 0.92;
-    letter-spacing: -0.02em;
+    line-height: 0.94;
+    letter-spacing: -0.015em;
   }
 
   .t-display-it { font-style: italic; }
@@ -155,4 +162,77 @@
 :root[data-room='calm'] *::after {
   animation-duration: 0.001ms !important;
   animation-iteration-count: 1 !important;
+}
+
+/* Screen-reader-only text that still receives focus when tabbed to. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- The printed handoff ----------------------------------------------
+   The screen version is dim because the reader has a headache; the paper
+   version is read by a clinician under clinic lighting, so it inverts to
+   plain black on white and drops every interactive affordance. */
+@media print {
+  :root,
+  :root[data-room='calm'] {
+    --paper: #ffffff;
+    --paper-deep: #ffffff;
+    --ink: #000000;
+    --ash: #444444;
+    --terra: #000000;
+    --line: rgba(0, 0, 0, 0.32);
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .grain,
+  .vignette,
+  nav,
+  video,
+  button {
+    display: none !important;
+  }
+
+  /* Let the sheet flow rather than holding a viewport-height room. */
+  [class*='min-h'],
+  main {
+    min-height: 0 !important;
+  }
+
+  .t-display {
+    font-size: 24pt !important;
+  }
+
+  .t-body,
+  .t-lead {
+    font-size: 10.5pt !important;
+    color: #000 !important;
+  }
+
+  .t-mono {
+    font-size: 8pt !important;
+    color: #333 !important;
+  }
+
+  /* Provocation must survive losing its colour on a mono printer. */
+  [style*='var(--terra)']::after {
+    content: '';
+  }
+
+  table {
+    page-break-inside: avoid;
+  }
 }

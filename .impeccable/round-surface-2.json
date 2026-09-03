@@ -1,0 +1,73 @@
+{
+  "title": "How the screening room is built",
+  "question": "Safer register, fresh hand — every earlier structure is off the table. The roll led with The Record. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "the-record",
+      "label": "The Record",
+      "kicker": "THE ROLL",
+      "lineage": "the patient chart — the file is the home, the visit is an event in it",
+      "thesis": "Your recovery record is the surface; a screening is something you start from inside it.",
+      "palette": ["#12100F", "#1B1817", "#C9BFB6", "#B8794A"],
+      "materials": ["trend line", "dated session rows"],
+      "viewport": "Your symptom and convergence trend since the injury, a single Start screening action beside it, and every past session dated below.",
+      "case": "You use this for weeks, not once, and it holds a healthy baseline to compare against — so the record, not the test, is the thing you actually return to.",
+      "risk": "On day one the record is empty, and an empty chart is a bleak first thing to hand someone who just got hurt.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "session header", "x": 0, "y": 0, "w": 12, "h": 1 },
+          { "label": "recovery trend since injury", "x": 0, "y": 1, "w": 8, "h": 4, "accent": true },
+          { "label": "start screening", "x": 8, "y": 1, "w": 4, "h": 4 },
+          { "label": "past sessions, dated", "x": 0, "y": 5, "w": 12, "h": 5 }
+        ]
+      }
+    },
+    {
+      "id": "runner-and-review",
+      "label": "Runner and Review",
+      "lineage": "the standard multi-step flow with a review step before you submit",
+      "thesis": "Run the seven tasks in order, then land on a review where any task can be redone before anything is recorded.",
+      "palette": ["#12100F", "#1B1817", "#C9BFB6", "#B8794A"],
+      "materials": ["single stage", "revisitable strip"],
+      "viewport": "One task on stage with its rating directly beneath, and a strip of all seven along the bottom showing which are done.",
+      "case": "The most familiar pattern in software, and the review step is the honest answer to a task performed badly because symptoms spiked mid-way.",
+      "risk": "The bottom strip is seven things in permanent peripheral view, which is seven things competing with the target.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "step header", "x": 0, "y": 0, "w": 12, "h": 1 },
+          { "label": "task stage", "x": 1, "y": 1, "w": 10, "h": 6, "accent": true },
+          { "label": "rate this task 0–10", "x": 1, "y": 7, "w": 10, "h": 1 },
+          { "label": "all seven, revisitable", "x": 1, "y": 8, "w": 10, "h": 2 }
+        ]
+      }
+    },
+    {
+      "id": "protocol-checklist",
+      "label": "Protocol Checklist",
+      "kicker": "IMPECCABLE'S PICK",
+      "lineage": "the clinical protocol sheet a examiner works down",
+      "thesis": "The seven tasks stand as a checklist you work down and can leave at any point, with the active one open beside it.",
+      "palette": ["#12100F", "#1B1817", "#C9BFB6", "#B8794A"],
+      "materials": ["persistent protocol list", "open task beside it"],
+      "viewport": "Seven named tasks down the left with their state, the one you are on open and quiet on the right.",
+      "case": "Stopping partway is an expected outcome here, not an error — a checklist is the one structure where quitting at task four still leaves something coherent and resumable.",
+      "risk": "Seeing all seven at once can read as a workload at the exact moment concentration is the scarce resource.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "session header", "x": 0, "y": 0, "w": 12, "h": 1 },
+          { "label": "the seven tasks, with state", "x": 0, "y": 1, "w": 4, "h": 9 },
+          { "label": "active task", "x": 4, "y": 1, "w": 8, "h": 9, "accent": true }
+        ]
+      }
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code", "toggle": false },
+  "steer": true
+}

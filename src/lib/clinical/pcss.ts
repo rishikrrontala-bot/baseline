@@ -124,3 +124,27 @@ export function isExacerbated(
 ): boolean {
   return currentTotal - baselineTotal >= threshold;
 }
+
+/**
+ * The four VOMS symptoms mapped onto their PCSS items, rescaled from the
+ * VOMS 0-10 scale to the PCSS 0-6 scale.
+ *
+ * This is a four-item proxy, not the 22-item inventory, and scorePcss counts
+ * only what it is given — so the band it produces is honest about resting on
+ * four answers. Anything presenting this as a full PCSS would be lying; the
+ * UI says "four of twenty-two" wherever it appears.
+ */
+export function pcssFromVomsSymptoms(v: {
+  headache: number;
+  dizziness: number;
+  nausea: number;
+  fogginess: number;
+}): PcssResponses {
+  const rescale = (n: number) => Math.round((Math.min(10, Math.max(0, n)) * 6) / 10);
+  return {
+    headache: rescale(v.headache),
+    dizziness: rescale(v.dizziness),
+    nausea: rescale(v.nausea),
+    in_a_fog: rescale(v.fogginess),
+  };
+}

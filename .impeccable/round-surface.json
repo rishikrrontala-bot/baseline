@@ -1,0 +1,74 @@
+{
+  "title": "How the screening room is built",
+  "question": "The world is settled — this is composition. The roll led with Mirror and Target. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "mirror-and-target",
+      "label": "Mirror and Target",
+      "kicker": "THE ROLL",
+      "lineage": "the clinician's mirror held beside the fixation target",
+      "thesis": "You see your own face and the target at once, so you always know you are framed and following correctly.",
+      "palette": ["#12100F", "#1B1817", "#C9BFB6", "#B8794A"],
+      "materials": ["dimmed self-view", "fixed stimulus field"],
+      "viewport": "A muted mirror of your own face on the left, the moving target on the right, a symptom strip waiting below.",
+      "case": "Self-view solves framing and proves adherence — but during a task your eyes belong on the target, not on yourself, so the mirror must recede the moment a task starts.",
+      "risk": "A live picture of your own face is the single most distracting thing you can put next to a fixation target.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "task + progress", "x": 0, "y": 0, "w": 10, "h": 1 },
+          { "label": "stop", "x": 10, "y": 0, "w": 2, "h": 1 },
+          { "label": "self-view (dims during task)", "x": 0, "y": 1, "w": 5, "h": 7 },
+          { "label": "stimulus field", "x": 5, "y": 1, "w": 7, "h": 7, "accent": true },
+          { "label": "symptom ratings 0–10", "x": 0, "y": 8, "w": 12, "h": 2 }
+        ]
+      }
+    },
+    {
+      "id": "step-cards",
+      "label": "Step Cards",
+      "lineage": "the paper VOMS form, one line at a time",
+      "thesis": "One full screen per step, moving forward only, so there is never more than one thing to hold in mind.",
+      "palette": ["#12100F", "#1B1817", "#C9BFB6", "#B8794A"],
+      "materials": ["single card", "edge progress rail"],
+      "viewport": "One centered card carrying this step alone, a thin rail marking how far through the seven tasks you are.",
+      "case": "Lowest possible cognitive load per screen, and the closest analogue to the paper instrument clinicians already trust.",
+      "risk": "Seven tasks times instruction, task, and rating is a lot of screens; it can feel like a form rather than a measurement.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "progress rail", "x": 0, "y": 0, "w": 12, "h": 1 },
+          { "label": "the one step", "x": 2, "y": 1, "w": 8, "h": 7, "accent": true },
+          { "label": "continue / stop", "x": 2, "y": 8, "w": 8, "h": 2 }
+        ]
+      }
+    },
+    {
+      "id": "held-frame",
+      "label": "Held Frame",
+      "kicker": "IMPECCABLE'S PICK",
+      "lineage": "bench instruments — the panel never moves, only the reading does",
+      "thesis": "One screen that never scrolls and never reflows; the chrome is nailed down and only the measurement inside it changes.",
+      "palette": ["#12100F", "#1B1817", "#C9BFB6", "#B8794A"],
+      "materials": ["fixed chrome", "swap-in-place centre"],
+      "viewport": "A still, dim panel: protocol down the left, the measurement field held dead centre, state down the right — none of it ever moves.",
+      "case": "Motion sensitivity and vestibular symptoms are what the tool measures, so a layout that never moves is the one structure that never provokes what it is trying to observe.",
+      "risk": "Fixed chrome on a small laptop squeezes the centre field, and the stimulus needs real room to travel.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "session header", "x": 0, "y": 0, "w": 12, "h": 1 },
+          { "label": "the seven tasks", "x": 0, "y": 1, "w": 3, "h": 9 },
+          { "label": "measurement field", "x": 3, "y": 1, "w": 6, "h": 9, "accent": true },
+          { "label": "signal + stop", "x": 9, "y": 1, "w": 3, "h": 9 }
+        ]
+      }
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code", "toggle": false },
+  "steer": true
+}

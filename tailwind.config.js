@@ -20,7 +20,7 @@ export default {
         },
       },
       fontFamily: {
-        display: ['Instrument Serif', 'Georgia', 'Times New Roman', 'serif'],
+        display: ['Bodoni Moda', 'Didot', 'Bodoni MT', 'Georgia', 'serif'],
         sans: ['Archivo', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
         mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },

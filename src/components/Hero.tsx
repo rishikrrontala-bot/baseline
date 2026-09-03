@@ -8,10 +8,6 @@ export default function Hero({ onEnter }: { onEnter: () => void }) {
     >
       {/* ── The claim, set wide ──────────────────────────────────────────── */}
       <div>
-        <p className="t-mono mb-[clamp(22px,4.5vh,44px)] max-w-[38ch] text-ash">
-          Vestibular &amp; ocular-motor screening — Baseline v0.1
-        </p>
-
         <h1 className="t-display" style={{ fontSize: 'clamp(44px, 7.3vw, 116px)' }}>
           <span className="line-mask">
             <span className="word">A concussion hides.</span>
@@ -27,6 +23,9 @@ export default function Hero({ onEnter }: { onEnter: () => void }) {
       {/* ── The reason, with the instrument alongside ─────────────────────── */}
       <div className="mt-[clamp(28px,5vh,56px)] grid grid-cols-1 items-center gap-y-10 md:grid-cols-[1fr_auto] md:gap-x-[5vw]">
         <div className="max-w-[44ch]">
+          <p className="t-mono mb-5 text-ash">
+            Vestibular &amp; ocular-motor screening — Baseline v0.1
+          </p>
           <p className="t-lead text-ink">
             Symptoms are self-reported, and people under-report them to get back on the field, back in
             class, back to normal. Eye movement is harder to talk yourself out of.

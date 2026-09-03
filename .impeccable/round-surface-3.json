@@ -1,0 +1,71 @@
+{
+  "title": "How the screening room is built",
+  "question": "Third hand — everything from the first two rounds is eliminated. The roll led with Three Rooms. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "three-rooms",
+      "label": "Three Rooms",
+      "kicker": "THE ROLL",
+      "lineage": "a clinic visit — you are prepared somewhere, tested somewhere, told somewhere",
+      "thesis": "Three named places, each with exactly one job, and you always know which one you are standing in.",
+      "palette": ["#12100F", "#1B1817", "#C9BFB6", "#B8794A"],
+      "materials": ["named rooms", "one job per room"],
+      "viewport": "A single quiet room filling the screen, named at the top, holding only what that room is for.",
+      "case": "The product already has a bright room and a dim room; naming the places makes the existing threshold into the navigation rather than an effect.",
+      "risk": "Three rooms is three transitions, and every transition is motion you owe the user an excuse for.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "which room you are in", "x": 0, "y": 0, "w": 12, "h": 1 },
+          { "label": "prepare · screen · findings", "x": 0, "y": 1, "w": 12, "h": 8, "accent": true },
+          { "label": "move to the next room", "x": 0, "y": 9, "w": 12, "h": 1 }
+        ]
+      }
+    },
+    {
+      "id": "the-curtain",
+      "label": "The Curtain",
+      "kicker": "IMPECCABLE'S PICK",
+      "lineage": "a darkened exam room where only the thing being looked at is lit",
+      "thesis": "The screen is dark and only what you need this second is lit; everything else is not dimmed, it is simply not there.",
+      "palette": ["#12100F", "#1B1817", "#C9BFB6", "#B8794A"],
+      "materials": ["unlit ground", "one lit element"],
+      "viewport": "Near-black, with a single line of instruction and the target lit above it, and nothing else on screen at all.",
+      "case": "Light hurts and attention is scarce, so the least photophobic and least distracting interface is the one that renders almost nothing — and it makes the stimulus the only bright thing, which is exactly what the measurement needs.",
+      "risk": "An interface that hides its own controls can leave a foggy user unable to find the way out — the stop action can never be hidden.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "unlit", "x": 0, "y": 0, "w": 12, "h": 2 },
+          { "label": "one line of instruction", "x": 2, "y": 2, "w": 8, "h": 2 },
+          { "label": "the target, the only bright thing", "x": 2, "y": 4, "w": 8, "h": 4, "accent": true },
+          { "label": "stop — never hidden", "x": 2, "y": 8, "w": 8, "h": 2 }
+        ]
+      }
+    },
+    {
+      "id": "chart-wall",
+      "label": "The Chart Wall",
+      "lineage": "the eye chart on the far wall of every optometrist's room",
+      "thesis": "The whole viewport is one calibrated field, and each task is a position and a scale within it rather than a separate screen.",
+      "palette": ["#12100F", "#1B1817", "#C9BFB6", "#B8794A"],
+      "materials": ["calibrated field", "graduated marks"],
+      "viewport": "One measured wall filling the screen, marked like an instrument, with the current task living somewhere on it.",
+      "case": "Nothing ever navigates — the field is constant and only the target's position and scale change, which is the least disruptive way to move between seven tasks.",
+      "risk": "A single field for seven different tasks risks reading as decoration rather than instrument, and vertical tasks fight a landscape screen.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "the calibrated field", "x": 0, "y": 0, "w": 12, "h": 8, "accent": true },
+          { "label": "task name · progress · stop", "x": 0, "y": 8, "w": 12, "h": 2 }
+        ]
+      }
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code", "toggle": false },
+  "steer": true
+}
