@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --paper: #efe7e2;
+    --paper-deep: #e4dad4;
+    --ink: #16110f;
+    --ash: #7a716b;
+    --terra: #c4491f;
+    --gutter: clamp(20px, 4.5vw, 76px);
+    --vh: 1vh;
+    --grain-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  }
+
+  /* The dim room. Set on <html> so it reaches portals and the scrollbar too. */
+  :root[data-room='calm'] {
+    --paper: #12100f;
+    --paper-deep: #1b1817;
+    --ink: #c9bfb6;
+    --ash: #8a807a;
+    --terra: #b8794a;
+  }
+
+  * { -webkit-tap-highlight-color: transparent; }
+
+  html { background: var(--paper); }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Archivo', Helvetica, Arial, sans-serif;
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    transition: background-color 900ms cubic-bezier(0.16, 1, 0.3, 1),
+                color 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  ::selection { background: var(--terra); color: var(--paper); }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--terra); outline-offset: 4px; border-radius: 2px; }
+  img { display: block; max-width: 100%; }
+}
+
+@layer components {
+  .gutter { padding-left: var(--gutter); padding-right: var(--gutter); }
+
+  /* ---- Type ------------------------------------------------------------
+     The display voice is a high-contrast serif set large and light. This is
+     the deliberate inversion of the portfolio's condensed uppercase Archivo:
+     same grid discipline, opposite temperament. */
+  .t-display {
+    font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+  }
+
+  .t-display-it { font-style: italic; }
+
+  .t-mono {
+    font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    font-weight: 400;
+    font-size: clamp(9.5px, 0.72vw, 11.5px);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.45;
+  }
+
+  .t-lead {
+    font-weight: 400;
+    font-size: clamp(18px, 1.85vw, 27px);
+    line-height: 1.35;
+    letter-spacing: -0.014em;
+  }
+
+  .t-body {
+    font-weight: 400;
+    font-size: clamp(15px, 1.05vw, 17px);
+    line-height: 1.62;
+    letter-spacing: -0.003em;
+    color: var(--ash);
+  }
+
+  .rule { height: 1px; background: currentColor; opacity: 0.16; width: 100%; }
+
+  .line-mask {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+  .word { display: inline-block; will-change: transform; }
+
+  /* ---- Texture ---------------------------------------------------------
+     Grain belongs to the bright room only. In the dim room it is suppressed
+     entirely: moving high-frequency noise is a migraine and photophobia
+     trigger, which is the population this tool exists for. */
+  .grain {
+    position: fixed;
+    inset: -120%;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0.3;
+    mix-blend-mode: multiply;
+    background-image: var(--grain-url);
+    background-size: 180px 180px;
+    animation: grainshift 0.7s steps(3) infinite;
+  }
+  @keyframes grainshift {
+    0%   { transform: translate3d(0, 0, 0); }
+    33%  { transform: translate3d(-6%, 3%, 0); }
+    66%  { transform: translate3d(4%, -5%, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+  }
+  :root[data-room='calm'] .grain { display: none; }
+
+  .vignette {
+    position: fixed;
+    inset: 0;
+    z-index: 9997;
+    pointer-events: none;
+    background: radial-gradient(120% 90% at 50% 45%, transparent 52%, rgba(22, 17, 15, 0.13) 100%);
+  }
+  :root[data-room='calm'] .vignette { display: none; }
+}
+
+@layer utilities {
+  .drag-none { -webkit-user-drag: none; user-select: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+}
+
+/* Reduced motion is honoured globally, and the dim room forces it on regardless
+   of the OS setting — motion sensitivity is a symptom, not a preference. */
+@media (prefers-reduced-motion: reduce) {
+  .grain { animation: none; opacity: 0.2; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+:root[data-room='calm'] *,
+:root[data-room='calm'] *::before,
+:root[data-room='calm'] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+}
