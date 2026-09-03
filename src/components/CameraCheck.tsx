@@ -65,7 +65,7 @@ export default function CameraCheck({
           <button
             type="button"
             onClick={begin}
-            className="t-mono absolute inset-0 grid place-items-center text-calm-text transition-colors duration-300 hover:text-calm-amber"
+            className="t-action absolute inset-0 grid place-items-center text-calm-text transition-colors duration-300 hover:text-calm-amber"
           >
             Turn the camera on
           </button>

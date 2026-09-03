@@ -46,7 +46,7 @@ The healthy-baseline capture happens at a completely different moment: before an
 
 Name: **Baseline** — simultaneously the clinical term for pre-injury testing and the typographic term. Both readings are intended.
 
-The visual world is already implemented and is binding: Instrument Serif display, Archivo UI, JetBrains Mono micro-labels; paper `#EFE7E2`, ink `#16110F`, ash `#7A716B`, terra `#C4491F`; a dim room palette on `:root[data-room='calm']`. Voice is precise and unhyped, and refuses false certainty — the user's prior work states limitations plainly rather than manufacturing confidence.
+The visual world is already implemented and is binding: Bodoni Moda display, Archivo UI and action labels, JetBrains Mono for measured data; paper `#EFE7E2`, ink `#16110F`, ash `#6A615B`, terra `#C4491F`; a dim room palette on `:root[data-room='calm']`. Voice is precise and unhyped, and refuses false certainty — the user's prior work states limitations plainly rather than manufacturing confidence.
 
 ## Evidence on Hand
 

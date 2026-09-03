@@ -33,30 +33,35 @@ export default function RatingScale({
         </span>
       </div>
 
-      <div className="flex gap-[3px]">
+      {/* Wraps to two rows on narrow screens rather than shrinking targets
+          below what someone with a headache can reliably hit. */}
+      <div className="flex flex-wrap gap-[3px]">
         {Array.from({ length: 11 }, (_, n) => {
           const active = value !== null && n <= value;
           const selected = value === n;
           return (
-            <label
-              key={n}
-              className="group relative flex-1 cursor-pointer"
-              style={{ minWidth: 0 }}
-            >
+            <label key={n} className="group relative flex-1 cursor-pointer" style={{ minWidth: 34 }}>
+              {/* The input is visually hidden but focusable; `peer` carries its
+                  focus state to the segment, because a focus ring painted on a
+                  1px-clipped element is a focus ring nobody can see. */}
               <input
                 type="radio"
                 name={name}
                 value={n}
                 checked={selected}
                 onChange={() => onChange(n)}
-                className="sr-only"
+                className="peer sr-only"
               />
               <span
                 aria-hidden="true"
-                className="block h-9 border transition-colors duration-200 group-hover:border-[var(--terra)]"
+                className="block h-11 border transition-colors duration-200 group-hover:border-[var(--terra)] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--terra)]"
                 style={{
                   background: active ? 'var(--terra)' : 'transparent',
-                  borderColor: selected ? 'var(--ink)' : active ? 'var(--terra)' : 'var(--line-strong)',
+                  borderColor: selected ? 'var(--paper)' : active ? 'var(--terra)' : 'var(--line-strong)',
+                  // Marked in the room's own ground, not in ink: ink on the
+                  // amber fill measures 1.98:1, under the 3:1 floor for a
+                  // control's state indicator.
+                  boxShadow: selected ? 'inset 0 0 0 2px var(--paper)' : undefined,
                 }}
               />
               {/* Only the anchors are labelled; eleven numerals under every

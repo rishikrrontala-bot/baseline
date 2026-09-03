@@ -32,7 +32,7 @@ export default function Hero({ onEnter }: { onEnter: () => void }) {
           </p>
 
           <button type="button" onClick={onEnter} className="group mt-9 flex items-center gap-4">
-            <span className="t-mono text-ink transition-opacity duration-500 group-hover:opacity-60">
+            <span className="t-action text-ink transition-opacity duration-500 group-hover:opacity-60">
               Begin screening
             </span>
             <span className="grid h-12 w-12 place-items-center rounded-full border border-[var(--line-strong)] transition-colors duration-500 group-hover:border-terra group-hover:bg-terra">

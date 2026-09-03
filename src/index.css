@@ -7,7 +7,7 @@
     --paper: #efe7e2;
     --paper-deep: #e4dad4;
     --ink: #16110f;
-    --ash: #7a716b;
+    --ash: #6a615b;
     --terra: #c4491f;
     --line: rgba(22, 17, 15, 0.16);
     /* Hairline rules are decoration and exempt from contrast rules; the edge
@@ -71,7 +71,9 @@
      the display cut thin its hairlines without the body text following. */
   .t-display {
     font-family: 'Bodoni Moda', Didot, 'Bodoni MT', Georgia, serif;
-    font-variation-settings: 'opsz' 96;
+    /* Follow the viewport: at mobile heading sizes the 96pt cut's hairlines
+       get fragile, which is the exact problem the opsz axis exists to solve. */
+    font-variation-settings: 'opsz' 28;
     font-weight: 400;
     line-height: 0.94;
     letter-spacing: -0.015em;
@@ -82,10 +84,22 @@
   .t-mono {
     font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
     font-weight: 400;
-    font-size: clamp(9.5px, 0.72vw, 11.5px);
-    letter-spacing: 0.14em;
+    font-size: clamp(12px, 0.78vw, 13px);
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  /* Controls speak in the UI face. Mono stays on data — readouts, counts and
+     measured values — where the monospacing is doing real work. */
+  .t-action {
+    font-family: 'Archivo', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: clamp(14px, 1.05vw, 16px);
+    letter-spacing: 0.005em;
+    line-height: 1.2;
   }
 
   .t-lead {
@@ -101,6 +115,10 @@
     line-height: 1.62;
     letter-spacing: -0.003em;
     color: var(--ash);
+  }
+
+  @media (min-width: 768px) {
+    .t-display { font-variation-settings: 'opsz' 96; }
   }
 
   .rule { height: 1px; background: currentColor; opacity: 0.16; width: 100%; }
@@ -126,13 +144,6 @@
     mix-blend-mode: multiply;
     background-image: var(--grain-url);
     background-size: 180px 180px;
-    animation: grainshift 0.7s steps(3) infinite;
-  }
-  @keyframes grainshift {
-    0%   { transform: translate3d(0, 0, 0); }
-    33%  { transform: translate3d(-6%, 3%, 0); }
-    66%  { transform: translate3d(4%, -5%, 0); }
-    100% { transform: translate3d(0, 0, 0); }
   }
   :root[data-room='calm'] .grain { display: none; }
 
@@ -155,18 +166,18 @@
 /* Reduced motion is honoured globally, and the dim room forces it on regardless
    of the OS setting — motion sensitivity is a symptom, not a preference. */
 @media (prefers-reduced-motion: reduce) {
-  .grain { animation: none; opacity: 0.2; }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
 }
-:root[data-room='calm'] *,
+:root[data-room='calm'] *:not(body),
 :root[data-room='calm'] *::before,
 :root[data-room='calm'] *::after {
   animation-duration: 0.001ms !important;
   animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
 }
 
 /* Screen-reader-only text that still receives focus when tabbed to. */
@@ -231,11 +242,6 @@
   .t-mono {
     font-size: 8pt !important;
     color: #333 !important;
-  }
-
-  /* Provocation must survive losing its colour on a mono printer. */
-  [style*='var(--terra)']::after {
-    content: '';
   }
 
   table {

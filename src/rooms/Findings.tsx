@@ -9,7 +9,7 @@ import {
   type VomsTaskResult,
 } from '../lib/clinical/voms';
 import { scorePcss, pcssFromVomsSymptoms } from '../lib/clinical/pcss';
-import { recommendStage, RED_FLAGS } from '../lib/clinical/staging';
+import { recommendStage, RED_FLAGS, describeFindings } from '../lib/clinical/staging';
 
 export default function Findings({
   baseline,
@@ -25,11 +25,13 @@ export default function Findings({
   const plan = recommendStage(voms, pcss);
 
   const byId = new Map(voms.tasks.map((t) => [t.taskId, t]));
+  const provokedCount = voms.provokedTasks.length;
+  const npcAbnormal = voms.tasks.some((t) => t.npcAbnormal === true);
 
   return (
     <RoomFrame
       room="findings"
-      heading={voms.anyFlag ? 'Some tasks provoked symptoms' : 'Nothing provoked symptoms'}
+      heading={describeFindings(provokedCount, npcAbnormal).replace(/\.$/, '')}
       onLeave={onLeave}
       action={
         <div className="flex flex-wrap items-center justify-between gap-6 border-t border-[var(--line)] pt-5 print:hidden">
@@ -39,7 +41,7 @@ export default function Findings({
           <button
             type="button"
             onClick={() => window.print()}
-            className="t-mono border border-[var(--line-strong)] px-6 py-4 text-calm-text transition-colors duration-300 hover:border-[var(--terra)] hover:text-[var(--terra)]"
+            className="t-action border border-[var(--line-strong)] px-6 py-4 text-calm-text transition-colors duration-300 hover:border-[var(--terra)] hover:text-[var(--terra)]"
           >
             Print this for a clinician
           </button>
@@ -89,6 +91,17 @@ export default function Findings({
             {VOMS_SYMPTOMS.map((s) => `${s} ${baseline[s]}`).join(', ')}. Everything above is
             measured against those, which is why the screening asks for them first.
           </p>
+
+          <div className="mt-8 border-t border-[var(--line)] pt-5">
+            <p className="t-body text-calm-text">
+              None of this waits. Go to an emergency department now if you have any of these:
+            </p>
+            <ul className="t-body mt-3 max-w-[48ch] list-disc space-y-1 pl-5">
+              {RED_FLAGS.map((f) => (
+                <li key={f}>{f}</li>
+              ))}
+            </ul>
+          </div>
         </section>
 
         {/* What to do about it. */}
@@ -124,17 +137,6 @@ export default function Findings({
               </ul>
             </div>
           )}
-
-          <div className="mt-6 border-t border-[var(--line)] pt-5">
-            <p className="t-body text-calm-text">
-              Go to an emergency department now if you have any of these:
-            </p>
-            <ul className="t-body mt-2 max-w-[48ch] list-disc space-y-1 pl-5">
-              {RED_FLAGS.map((f) => (
-                <li key={f}>{f}</li>
-              ))}
-            </ul>
-          </div>
 
           <p className="t-body mt-6 max-w-[50ch]">
             Baseline is a screening aid. It does not diagnose a concussion and it cannot clear

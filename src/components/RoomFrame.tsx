@@ -49,7 +49,7 @@ export default function RoomFrame({
         <button
           type="button"
           onClick={onLeave}
-          className="t-mono shrink-0 text-calm-mute underline underline-offset-4 transition-colors duration-300 hover:text-calm-text"
+          className="t-action shrink-0 text-calm-mute underline underline-offset-4 transition-colors duration-300 hover:text-calm-text"
         >
           Stop
         </button>
@@ -58,7 +58,7 @@ export default function RoomFrame({
       {/* The one job this room holds. */}
       <main className="flex flex-1 flex-col justify-center py-[clamp(20px,4vh,44px)]">
         <h1
-          className="t-display mb-[clamp(18px,3vh,32px)] max-w-[20ch] text-calm-text"
+          className="t-display mb-[clamp(18px,3vh,32px)] max-w-[26ch] text-balance text-calm-text"
           style={{ fontSize: 'clamp(30px, 4vw, 58px)' }}
         >
           {heading}

@@ -16,30 +16,25 @@
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- The display face blocks briefly rather than swapping: the first
+         viewport is the thesis, and a headline that restyles itself mid-read
+         is worse than one that arrives a moment late. The UI faces swap
+         normally, since their fallbacks are metric-compatible enough. -->
     <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&display=block"
     />
     <link
       rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
-      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-      />
-    </noscript>
   </head>
   <body>
     <!--
       THESIS: The screening is three named rooms — Prepare, Screen, Findings —
       each holding one job, refusing the wizard that hides where you are.
-      OWN-WORLD: Bright blush paper and Instrument Serif for the room you walk
-      in from; a luminance-capped dim room, #12100F ground with #C9BFB6 ink and
+      OWN-WORLD: Bright blush paper and Bodoni Moda — a didone, the letterform
+      of engraved anatomical plates — for the room you walk in from; a luminance-capped dim room, #12100F ground with #C9BFB6 ink and
       a single amber, for the rooms you are measured in. Mono micro-labels,
       hairline rules, no cards, no gradients, no shadow.
       STORY: Symptoms are self-reported and under-reported; eye movement is not.

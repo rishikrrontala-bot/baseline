@@ -171,7 +171,7 @@ export default function Screen({
             <button
               type="button"
               onClick={beginTask}
-              className="t-mono border border-[var(--line-strong)] px-6 py-4 text-calm-text transition-colors duration-300 hover:border-[var(--terra)] hover:text-[var(--terra)]"
+              className="t-action border border-[var(--line-strong)] px-6 py-4 text-calm-text transition-colors duration-300 hover:border-[var(--terra)] hover:text-[var(--terra)]"
             >
               Start this task
             </button>
@@ -194,7 +194,7 @@ export default function Screen({
                 setPhase('rating');
                 setStartedAt(null);
               }}
-              className="t-mono underline underline-offset-4"
+              className="t-action underline underline-offset-4"
               style={{ color: 'var(--ash)' }}
             >
               End this task early
@@ -206,7 +206,7 @@ export default function Screen({
               type="button"
               disabled={!allAnswered}
               onClick={commitRating}
-              className="t-mono border border-[var(--line-strong)] px-6 py-4 text-calm-text transition-colors duration-300 enabled:hover:border-[var(--terra)] enabled:hover:text-[var(--terra)] disabled:opacity-40"
+              className="t-action border border-[var(--line-strong)] px-6 py-4 text-calm-text transition-colors duration-300 enabled:hover:border-[var(--terra)] enabled:hover:text-[var(--terra)] disabled:opacity-40"
             >
               {index + 1 >= VOMS_TASKS.length ? 'See findings' : 'Next task'}
             </button>
@@ -231,7 +231,6 @@ export default function Screen({
           </div>
 
           <div className="t-body">
-            <p className="max-w-[40ch]">{task.instruction}</p>
             {task.id === 'convergence' && (
               <p className="mt-4 max-w-[40ch]">
                 Nothing is drawn on screen for this one on purpose — a dot here would

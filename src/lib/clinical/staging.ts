@@ -71,6 +71,26 @@ export interface StageRecommendation {
 }
 
 /**
+ * State what was actually found, in the numbers that were actually counted.
+ * A fixed plural here once claimed "several tasks provoked symptoms" on a
+ * screening where none did and only convergence was abnormal — the exact
+ * collapse of "measured and found nothing" into "measured and found
+ * something" this product exists to refuse.
+ */
+export function describeFindings(provokedCount: number, npcAbnormal: boolean): string {
+  const tasks =
+    provokedCount === 0
+      ? 'No task provoked symptoms'
+      : provokedCount === 1
+        ? 'One task provoked symptoms'
+        : `${provokedCount} tasks provoked symptoms`;
+  if (!npcAbnormal) return `${tasks}.`;
+  return provokedCount === 0
+    ? `${tasks}, but convergence was outside the normal range.`
+    : `${tasks}, and convergence was outside the normal range.`;
+}
+
+/**
  * Map findings to a stage to attempt. The mapping is deliberately
  * conservative and deliberately coarse: a webcam screening cannot justify
  * fine-grained staging, so this returns a floor to start from rather than a
@@ -88,7 +108,9 @@ export function recommendStage(
 
   if (provokedCount > 0) {
     reasons.push(
-      `${provokedCount} of the seven tasks provoked symptoms by 2 points or more.`,
+      provokedCount === 1
+        ? 'One of the seven tasks provoked symptoms by 2 points or more.'
+        : `${provokedCount} of the seven tasks provoked symptoms by 2 points or more.`,
     );
   }
   if (npcAbnormal && npcTask?.npcCm !== undefined) {
@@ -117,24 +139,26 @@ export function recommendStage(
 
   let rtsN: number;
   let rtlN: number;
-  let rationale: string;
+  let advice: string;
 
   if (provokedCount === 0 && !npcAbnormal && pcss.band === 'minimal') {
     rtsN = 3;
     rtlN = 4;
-    rationale =
-      'Nothing provoked symptoms and your inventory was minimal, so you can attempt sport-specific work and full school days. Contact still needs a clinician.';
+    advice =
+      'You can attempt sport-specific work and full school days. Contact still needs a clinician.';
   } else if (provokedCount <= 2 && !npcAbnormal && pcss.band !== 'severe') {
     rtsN = 2;
     rtlN = 3;
-    rationale =
-      'A little provocation, nothing objective. Light aerobic work and part-time school are reasonable to attempt, backing off if symptoms rise more than mildly.';
+    advice =
+      'Light aerobic work and part-time school are reasonable to attempt, backing off if symptoms rise more than mildly.';
   } else {
     rtsN = 1;
     rtlN = 2;
-    rationale =
-      'Several tasks provoked symptoms, so start at symptom-limited activity and school work at home. This is a starting floor, not a diagnosis.';
+    advice =
+      'Start at symptom-limited activity and school work at home. This is a starting floor, not a diagnosis.';
   }
+
+  const rationale = `${describeFindings(provokedCount, npcAbnormal)} ${advice}`;
 
   return {
     rts: RTS_STAGES[rtsN - 1],

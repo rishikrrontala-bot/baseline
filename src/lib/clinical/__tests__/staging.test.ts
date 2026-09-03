@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { recommendStage, RTS_STAGES, RTL_STAGES, RED_FLAGS } from '../staging';
+import { recommendStage, describeFindings, RTS_STAGES, RTL_STAGES, RED_FLAGS } from '../staging';
 import { assessVoms, VOMS_TASKS, type VomsTaskResult } from '../voms';
 import { scorePcss } from '../pcss';
 
@@ -78,5 +78,44 @@ describe('recommendStage', () => {
     const v = assessVoms(calm, allTasks({ dizziness: 3 }));
     const r = recommendStage(v, scorePcss({ dizziness: 3 }));
     expect(r.rationale.length).toBeGreaterThan(40);
+  });
+});
+
+describe('describeFindings — never claims provocation that did not happen', () => {
+  it('says no task provoked when none did', () => {
+    expect(describeFindings(0, false)).toBe('No task provoked symptoms.');
+  });
+
+  it('says "One task", not "1 tasks"', () => {
+    expect(describeFindings(1, false)).toBe('One task provoked symptoms.');
+  });
+
+  it('reports abnormal convergence without inventing provoking tasks', () => {
+    // The regression: the old rationale was hardcoded "Several tasks provoked
+    // symptoms" and its branch was reached on an abnormal NPC alone.
+    const s = describeFindings(0, true);
+    expect(s).toMatch(/^No task provoked symptoms, but convergence/);
+    expect(s).not.toMatch(/several/i);
+  });
+
+  it('joins both findings when both are present', () => {
+    expect(describeFindings(3, true)).toBe(
+      '3 tasks provoked symptoms, and convergence was outside the normal range.',
+    );
+  });
+});
+
+describe('rationale matches the counted findings', () => {
+  it('does not say "several tasks" when only convergence was abnormal', () => {
+    const v = assessVoms(calm, allTasks({}, 7.5));
+    const r = recommendStage(v, scorePcss({ headache: 0 }));
+    expect(r.rationale).toMatch(/^No task provoked symptoms, but convergence/);
+    expect(r.rationale).not.toMatch(/several tasks/i);
+  });
+
+  it('opens every rationale with what was actually found', () => {
+    const v = assessVoms(calm, allTasks({ headache: 5 }));
+    const r = recommendStage(v, scorePcss({ headache: 5 }));
+    expect(r.rationale).toMatch(/^7 tasks provoked symptoms/);
   });
 });
