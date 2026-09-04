@@ -36,7 +36,7 @@ export default function Prepare({
       onLeave={onLeave}
       action={
         <div className="flex flex-wrap items-center justify-between gap-6 border-t border-[var(--line)] pt-5">
-          <p className="t-mono text-calm-mute">
+          <p className="t-mono text-[var(--ash)]">
             {allAnswered
               ? cameraReady || demo
                 ? 'Ready'
@@ -47,7 +47,7 @@ export default function Prepare({
             type="button"
             disabled={!allAnswered || !(cameraReady || demo)}
             onClick={() => onContinue(ratings as VomsRatings)}
-            className="t-action border border-[var(--line-strong)] px-6 py-4 text-calm-text transition-colors duration-300 enabled:hover:border-calm-amber enabled:hover:text-calm-amber disabled:opacity-40"
+            className="t-action border border-[var(--line-strong)] px-6 py-4 text-[var(--ink)] transition-colors duration-300 enabled:hover:border-[var(--terra)] enabled:hover:text-[var(--terra)] disabled:opacity-40"
           >
             Start the seven tasks
           </button>

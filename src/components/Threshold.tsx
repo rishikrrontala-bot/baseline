@@ -30,7 +30,7 @@ export default function Threshold({ onDone }: { onDone: () => void }) {
 
   return (
     <section
-      className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-calm-bg px-6"
+      className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-[var(--paper)] px-6"
       style={{ minHeight: 'calc(var(--vh, 1vh) * 100)' }}
       role="dialog"
       aria-modal="true"
@@ -39,13 +39,13 @@ export default function Threshold({ onDone }: { onDone: () => void }) {
       <div className="w-full max-w-[46ch]">
         <ul className="space-y-4">
           {LINES.map((line) => (
-            <li key={line} className="t-lead text-calm-text">
+            <li key={line} className="t-lead text-[var(--ink)]">
               {line}
             </li>
           ))}
         </ul>
 
-        <p className="t-body mt-8 max-w-[52ch] text-calm-mute">
+        <p className="t-body mt-8 max-w-[52ch] text-[var(--ash)]">
           Light sensitivity and motion sensitivity are two of the things this screening
           measures. An interface that provokes them would corrupt its own reading, so the
           rooms ahead are dim and still by design — not as a preference you have to find.
@@ -55,14 +55,14 @@ export default function Threshold({ onDone }: { onDone: () => void }) {
           <button
             type="button"
             onClick={finish}
-            className="t-action border border-[var(--line-strong)] px-6 py-4 text-calm-text transition-colors duration-300 hover:border-calm-amber hover:text-calm-amber"
+            className="t-action border border-[var(--line-strong)] px-6 py-4 text-[var(--ink)] transition-colors duration-300 hover:border-[var(--terra)] hover:text-[var(--terra)]"
           >
             Go on
           </button>
           <button
             type="button"
             onClick={finish}
-            className="t-action text-calm-mute underline underline-offset-4 transition-colors duration-300 hover:text-calm-text"
+            className="t-action text-[var(--ash)] underline underline-offset-4 transition-colors duration-300 hover:text-[var(--ink)]"
           >
             Skip this
           </button>

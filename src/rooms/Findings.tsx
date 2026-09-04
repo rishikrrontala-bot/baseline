@@ -41,7 +41,7 @@ export default function Findings({
           <button
             type="button"
             onClick={() => window.print()}
-            className="t-action border border-[var(--line-strong)] px-6 py-4 text-calm-text transition-colors duration-300 hover:border-[var(--terra)] hover:text-[var(--terra)]"
+            className="t-action border border-[var(--line-strong)] px-6 py-4 text-[var(--ink)] transition-colors duration-300 hover:border-[var(--terra)] hover:text-[var(--terra)]"
           >
             Print this for a clinician
           </button>
@@ -60,7 +60,7 @@ export default function Findings({
                 const a = byId.get(task.id);
                 return (
                   <tr key={task.id} className="border-b border-[var(--line)]">
-                    <th scope="row" className="t-body py-3 pr-4 text-left font-normal text-calm-text">
+                    <th scope="row" className="t-body py-3 pr-4 text-left font-normal text-[var(--ink)]">
                       {task.label}
                     </th>
                     <td className="t-mono py-3 text-right" style={{ color: 'var(--ash)' }}>
@@ -93,7 +93,7 @@ export default function Findings({
           </p>
 
           <div className="mt-8 border-t border-[var(--line)] pt-5">
-            <p className="t-body text-calm-text">
+            <p className="t-body text-[var(--ink)]">
               None of this waits. Go to an emergency department now if you have any of these:
             </p>
             <ul className="t-body mt-3 max-w-[48ch] list-disc space-y-1 pl-5">
@@ -112,13 +112,13 @@ export default function Findings({
 
           <dl className="space-y-5">
             <div>
-              <dt className="t-body text-calm-text">
+              <dt className="t-body text-[var(--ink)]">
                 Activity — stage {plan.rts.n}: {plan.rts.label}
               </dt>
               <dd className="t-body mt-1 max-w-[46ch]">{plan.rts.detail}</dd>
             </div>
             <div>
-              <dt className="t-body text-calm-text">
+              <dt className="t-body text-[var(--ink)]">
                 School or work — stage {plan.rtl.n}: {plan.rtl.label}
               </dt>
               <dd className="t-body mt-1 max-w-[46ch]">{plan.rtl.detail}</dd>
@@ -129,7 +129,7 @@ export default function Findings({
 
           {plan.seekAssessment && (
             <div className="mt-6 border-t border-[var(--line)] pt-5">
-              <p className="t-body text-calm-text">See a clinician about this screening.</p>
+              <p className="t-body text-[var(--ink)]">See a clinician about this screening.</p>
               <ul className="t-body mt-2 max-w-[48ch] list-disc space-y-1 pl-5">
                 {plan.reasons.map((r) => (
                   <li key={r}>{r}</li>

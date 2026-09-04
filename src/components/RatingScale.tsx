@@ -27,8 +27,8 @@ export default function RatingScale({
   return (
     <div role="radiogroup" aria-label={`${label}, 0 to 10`}>
       <div className="mb-2 flex items-baseline justify-between gap-4">
-        <span className="t-body text-calm-text">{label}</span>
-        <span className="t-mono text-calm-mute">
+        <span className="t-body text-[var(--ink)]">{label}</span>
+        <span className="t-mono text-[var(--ash)]">
           {value === null ? 'Not answered' : `${value} / 10`}
         </span>
       </div>

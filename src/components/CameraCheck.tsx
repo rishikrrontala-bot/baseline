@@ -65,17 +65,17 @@ export default function CameraCheck({
           <button
             type="button"
             onClick={begin}
-            className="t-action absolute inset-0 grid place-items-center text-calm-text transition-colors duration-300 hover:text-calm-amber"
+            className="t-action absolute inset-0 grid place-items-center text-[var(--ink)] transition-colors duration-300 hover:text-[var(--terra)]"
           >
             Turn the camera on
           </button>
         )}
       </div>
 
-      <p className="t-body mt-3 text-calm-mute" role="status">
+      <p className="t-body mt-3 text-[var(--ash)]" role="status">
         {MESSAGE[status]}
         {status === 'running' && ipd !== null && (
-          <span className="t-mono ml-3 text-calm-mute">
+          <span className="t-mono ml-3 text-[var(--ash)]">
             Pupil separation {Math.round(ipd)} px
           </span>
         )}

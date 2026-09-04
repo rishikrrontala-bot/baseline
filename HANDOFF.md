@@ -28,6 +28,23 @@ Done: design system (`src/index.css`, `tailwind.config.js`), `index.html`, `Hero
 Fixed: aperture error-line showed a permanent residual because target and pupil were clamped to different radii — it read clipping as pursuit lag. Both now share `MAX_EXCURSION`.
 **Tailwind gotcha:** Vite caches postcss config at startup. If components/utilities layers vanish, restart the server.
 
+## Print path — verified, and it was broken
+
+The finish reviewer flagged the clinician printout as the one shipped output
+nobody had ever seen rendered. Rendering it proved the point: it printed
+near-black text on a near-black ground, completely unreadable.
+
+Cause: the rooms used Tailwind's literal `calm-*` colours (`bg-calm-bg`,
+`text-calm-text`), so the `@media print` overrides of `--paper` / `--ink` never
+reached them. Every room component now reads the token vars instead, which is
+what DESIGN.md already claimed the system did — one vocabulary, three worlds.
+
+`scripts/capture-print.mjs` walks a full demo screening, switches to print
+media and emits both `.impeccable/review/print-findings.png` and a real A4
+`handoff.pdf`. Re-run it after any change to the rooms. Provocation survives
+losing its colour: print sets `--terra` to black, and the row still reads
+"PROVOKED +3 8.4 CM (≥5)" against "NO RISE".
+
 ## Next
 1. `rm baseline/spike.html baseline/src/spike.ts` (verified, superseded) — capture numbers above in `docs/SPIKE.md`.
 2. Build the calm-room transition + the 7-task VOMS battery (webcam loop, live).

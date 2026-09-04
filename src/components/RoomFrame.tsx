@@ -21,7 +21,7 @@ export default function RoomFrame({
 }) {
   return (
     <div
-      className="gutter flex flex-col bg-calm-bg pb-[clamp(20px,3.5vh,36px)] pt-[clamp(20px,3.5vh,36px)]"
+      className="gutter flex flex-col bg-[var(--paper)] pb-[clamp(20px,3.5vh,36px)] pt-[clamp(20px,3.5vh,36px)]"
       style={{ minHeight: 'calc(var(--vh, 1vh) * 100)' }}
     >
       {/* Which room you are standing in. Navigation, not a label on the heading. */}
@@ -49,7 +49,7 @@ export default function RoomFrame({
         <button
           type="button"
           onClick={onLeave}
-          className="t-action shrink-0 text-calm-mute underline underline-offset-4 transition-colors duration-300 hover:text-calm-text"
+          className="t-action shrink-0 text-[var(--ash)] underline underline-offset-4 transition-colors duration-300 hover:text-[var(--ink)]"
         >
           Stop
         </button>
@@ -58,7 +58,7 @@ export default function RoomFrame({
       {/* The one job this room holds. */}
       <main className="flex flex-1 flex-col justify-center py-[clamp(20px,4vh,44px)]">
         <h1
-          className="t-display mb-[clamp(18px,3vh,32px)] max-w-[26ch] text-balance text-calm-text"
+          className="t-display mb-[clamp(18px,3vh,32px)] max-w-[26ch] text-balance text-[var(--ink)]"
           style={{ fontSize: 'clamp(30px, 4vw, 58px)' }}
         >
           {heading}

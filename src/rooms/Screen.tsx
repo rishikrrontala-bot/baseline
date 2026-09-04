@@ -171,7 +171,7 @@ export default function Screen({
             <button
               type="button"
               onClick={beginTask}
-              className="t-action border border-[var(--line-strong)] px-6 py-4 text-calm-text transition-colors duration-300 hover:border-[var(--terra)] hover:text-[var(--terra)]"
+              className="t-action border border-[var(--line-strong)] px-6 py-4 text-[var(--ink)] transition-colors duration-300 hover:border-[var(--terra)] hover:text-[var(--terra)]"
             >
               Start this task
             </button>
@@ -206,7 +206,7 @@ export default function Screen({
               type="button"
               disabled={!allAnswered}
               onClick={commitRating}
-              className="t-action border border-[var(--line-strong)] px-6 py-4 text-calm-text transition-colors duration-300 enabled:hover:border-[var(--terra)] enabled:hover:text-[var(--terra)] disabled:opacity-40"
+              className="t-action border border-[var(--line-strong)] px-6 py-4 text-[var(--ink)] transition-colors duration-300 enabled:hover:border-[var(--terra)] enabled:hover:text-[var(--terra)] disabled:opacity-40"
             >
               {index + 1 >= VOMS_TASKS.length ? 'See findings' : 'Next task'}
             </button>
@@ -227,7 +227,7 @@ export default function Screen({
             />
             {/* The cue stays on screen for the whole task — recalling an
                 instruction is exactly what a concussed brain struggles with. */}
-            <p className="t-lead mt-5 max-w-[46ch] text-calm-text">{timing.cue}</p>
+            <p className="t-lead mt-5 max-w-[46ch] text-[var(--ink)]">{timing.cue}</p>
           </div>
 
           <div className="t-body">
