@@ -69,7 +69,7 @@ export default function History({
     return (
       <section className="mt-10 border-t border-[var(--line)] pt-6 print:hidden">
         <p className="t-body max-w-[56ch]">
-          This browser will not let Baseline keep a local record — private browsing usually does
+          This browser will not let Baseline keep a local record. Private browsing usually does
           this. The screening above is complete and printable; it just cannot be saved for
           comparison later.
         </p>
@@ -85,7 +85,7 @@ export default function History({
           <p className="t-body max-w-[58ch]">
             {base
               ? `Saving it adds a point to your recovery record and compares it against the baseline you took ${new Date(base.at).toLocaleDateString(undefined, { month: 'long', day: 'numeric' })}.`
-              : 'Nothing is stored unless you choose to store it. A baseline taken while you feel well is what every later screening is measured against — so if you are currently symptomatic, save this as a screening, not a baseline.'}
+              : 'Nothing is stored unless you choose to store it. A baseline taken while you feel well is what every later screening is measured against. If you are currently symptomatic, save this as a screening, not a baseline.'}
           </p>
           <p className="t-body mt-2 max-w-[58ch] text-[var(--ash)]">
             It stays in this browser on this device. It is never uploaded, and you can export or

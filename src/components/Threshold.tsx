@@ -48,7 +48,7 @@ export default function Threshold({ onDone }: { onDone: () => void }) {
         <p className="t-body mt-8 max-w-[52ch] text-[var(--ash)]">
           Light sensitivity and motion sensitivity are two of the things this screening
           measures. An interface that provokes them would corrupt its own reading, so the
-          rooms ahead are dim and still by design — not as a preference you have to find.
+          rooms ahead are dim and still by design, not a preference you have to find.
         </p>
 
         <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">

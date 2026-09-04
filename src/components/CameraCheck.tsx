@@ -11,7 +11,7 @@ const MESSAGE: Record<TrackerStatus, string> = {
   loading_model: 'Loading the model from this device…',
   requesting_camera: 'Waiting for you to allow the camera…',
   running: 'Face found. Framing looks usable.',
-  no_face: 'No face found — move into frame, or add some light.',
+  no_face: 'No face found. Move into frame, or add some light.',
   error: 'The camera could not be started.',
 };
 
@@ -28,7 +28,7 @@ const FAULT: Record<TrackerFaultInfo['fault'], { says: string; fix: string }> = 
   },
   device_busy: {
     says: 'Another app is holding the camera.',
-    fix: 'Quit anything else using it — a video call, Photo Booth, OBS — and turn it on again.',
+    fix: 'Quit anything else using it, like a video call, Photo Booth or OBS, then turn it on again.',
   },
   constraints: {
     says: 'This camera cannot provide a usable video size.',
@@ -44,7 +44,7 @@ const FAULT: Record<TrackerFaultInfo['fault'], { says: string; fix: string }> = 
   },
   model_load: {
     says: 'The on-device model did not load.',
-    fix: 'Reload the page. If it keeps failing, the app is missing its model files — the screening runs entirely from them, so there is no server to fall back to.',
+    fix: 'Reload the page. If it keeps failing, the app is missing its model files. The screening runs entirely from them, so there is no server to fall back to.',
   },
   playback: {
     says: 'The camera opened but the video would not play.',

@@ -40,7 +40,7 @@ export default function Prepare({
             {allAnswered
               ? cameraReady || demo
                 ? 'Ready'
-                : 'Ratings done — the camera is still off'
+                : 'Ratings done. The camera is still off'
               : `${answered} of ${VOMS_SYMPTOMS.length} answered`}
           </p>
           <button
@@ -97,7 +97,7 @@ export default function Prepare({
           <p className="t-body mt-5 max-w-[52ch]">
             The camera confirms you performed each movement and measures one number the
             ratings cannot: how far from your eyes the target was when it doubled. Frames
-            are read and thrown away — nothing is recorded and nothing is sent.
+            are read and thrown away. Nothing is recorded and nothing is sent.
           </p>
         </div>
       </div>

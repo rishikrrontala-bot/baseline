@@ -280,7 +280,7 @@ export default function Screen({
           <div className="t-body">
             {task.id === 'convergence' && (
               <p className="mt-4 max-w-[40ch]">
-                Nothing is drawn on screen for this one on purpose — a dot here would
+                Nothing is drawn on screen for this one on purpose. A dot here would
                 compete with your fingertip for the fixation being measured.
               </p>
             )}
@@ -291,7 +291,7 @@ export default function Screen({
       {phase === 'rating' && (
         <div className="max-w-[62ch]">
           <p className="t-body mb-7">
-            Rate how you feel <em>now</em>, right after that task — not how you felt before
+            Rate how you feel <em>now</em>, right after that task, not how you felt before
             it. The difference between the two is the measurement.
           </p>
           <div className="space-y-6">

@@ -119,7 +119,7 @@ export default function Findings({
               <h3 className="t-mono mb-1 text-[var(--ash)]">What the camera measured</h3>
               <p className="t-body mb-4 max-w-[54ch]">
                 {summariseObjectives(objectives).headline} These sit beside the symptom ratings, not
-                instead of them — the ratings are the validated part of this screening.
+                instead of them. The ratings are the validated part of this screening.
               </p>
               <dl className="grid gap-3">
                 {objectives.map((o) => {
@@ -199,7 +199,7 @@ export default function Findings({
 
           <p className="t-body mt-6 max-w-[50ch]">
             Baseline is a screening aid. It does not diagnose a concussion and it cannot clear
-            you to return to contact — only a clinician who examines you can do that.
+            you to return to contact. Only a clinician who examines you can do that.
           </p>
         </section>
       </div>

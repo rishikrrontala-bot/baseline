@@ -59,7 +59,7 @@ export default function Hero({ onEnter }: { onEnter: () => void }) {
         <div className="grid grid-cols-1 gap-x-[5vw] gap-y-7 lg:grid-cols-[1fr_auto] lg:items-start">
           <p className="t-body max-w-[58ch]">
             Baseline runs a seven-task screening adapted from VOMS in your browser. The camera feed is
-            read by a model on your own machine and discarded frame by frame — there is no account, no
+            read by a model on your own machine and discarded frame by frame. There is no account, no
             upload, and no server that could leak it, because there is no server.
           </p>
 
