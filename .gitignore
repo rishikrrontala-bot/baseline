@@ -4,3 +4,6 @@ dist-single
 .DS_Store
 *.local
 .vite
+
+# Recording intermediates; the encoded mp4 is committed.
+scripts/video/out/*.webm
