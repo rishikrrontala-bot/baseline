@@ -1,4 +1,7 @@
+import { useMemo, useState } from 'react';
 import RoomFrame from '../components/RoomFrame';
+import History from '../components/History';
+import { browserStore, loadHistory, type ScreeningRecord } from '../lib/history';
 import {
   assessVoms,
   VOMS_TASKS,
@@ -27,6 +30,22 @@ export default function Findings({
   const byId = new Map(voms.tasks.map((t) => [t.taskId, t]));
   const provokedCount = voms.provokedTasks.length;
   const npcAbnormal = voms.tasks.some((t) => t.npcAbnormal === true);
+
+  const store = useMemo(() => browserStore(), []);
+  const [records, setRecords] = useState<ScreeningRecord[]>(() => loadHistory(store));
+
+  const npcTask = voms.tasks.find((t) => t.npcCm !== undefined);
+  const pending = {
+    pcssTotal: pcss.total,
+    pcssBand: pcss.band,
+    pcssAnswered: pcss.itemsAnswered,
+    pretest: baseline,
+    provokedTasks: voms.provokedTasks,
+    provokedCount,
+    npcCm: npcTask?.npcCm ?? null,
+    rtsStage: plan.rts.n,
+    rtlStage: plan.rtl.n,
+  };
 
   return (
     <RoomFrame
@@ -144,6 +163,7 @@ export default function Findings({
           </p>
         </section>
       </div>
+      <History store={store} records={records} onRecords={setRecords} pending={pending} />
     </RoomFrame>
   );
 }
