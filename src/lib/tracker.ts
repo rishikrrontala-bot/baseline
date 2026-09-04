@@ -45,6 +45,55 @@ export type TrackerStatus =
   | 'no_face'
   | 'error';
 
+/*  Why the camera did not start.
+ *
+ *  "It didn't work" is not a finding. A denied permission, a camera another
+ *  app is holding, a machine with no camera at all and a model that failed to
+ *  load are four different problems with four different remedies, and the
+ *  person in front of the screen is the only one who can act on any of them.
+ *  Collapsing them into one message is the same refusal to distinguish that
+ *  this product exists to avoid.
+ */
+export type TrackerFault =
+  | 'model_load'
+  | 'insecure_origin'
+  | 'unsupported'
+  | 'permission'
+  | 'no_device'
+  | 'device_busy'
+  | 'constraints'
+  | 'playback'
+  | 'unknown';
+
+export interface TrackerFaultInfo {
+  fault: TrackerFault;
+  /** The underlying error name and message, kept for the diagnostics line. */
+  detail: string;
+}
+
+/** Map a getUserMedia rejection to the thing the person actually has to fix. */
+export function classifyCameraError(err: unknown): TrackerFault {
+  const name = (err as { name?: string })?.name ?? '';
+  switch (name) {
+    case 'NotAllowedError':
+    case 'PermissionDeniedError':
+      return 'permission';
+    case 'NotFoundError':
+    case 'DevicesNotFoundError':
+      return 'no_device';
+    case 'NotReadableError':
+    case 'TrackStartError':
+      return 'device_busy';
+    case 'OverconstrainedError':
+    case 'ConstraintNotSatisfiedError':
+      return 'constraints';
+    case 'SecurityError':
+      return 'insecure_origin';
+    default:
+      return 'unknown';
+  }
+}
+
 function blend(cats: { categoryName?: string; score: number }[] | undefined, name: string): number {
   if (!cats) return 0;
   const hit = cats.find((c) => c.categoryName === name);
@@ -78,8 +127,17 @@ export class Tracker {
   private lastTs = -1;
 
   status: TrackerStatus = 'idle';
+  fault: TrackerFaultInfo | null = null;
   onSample: ((s: TrackerSample) => void) | null = null;
   onStatus: ((s: TrackerStatus) => void) | null = null;
+  onFault: ((f: TrackerFaultInfo) => void) | null = null;
+
+  private fail(fault: TrackerFault, err: unknown) {
+    const e = err as { name?: string; message?: string };
+    this.fault = { fault, detail: `${e?.name ?? 'Error'}: ${e?.message ?? String(err)}` };
+    this.onFault?.(this.fault);
+    this.setStatus('error');
+  }
 
   private setStatus(s: TrackerStatus) {
     this.status = s;
@@ -88,32 +146,73 @@ export class Tracker {
 
   async start(video: HTMLVideoElement): Promise<void> {
     this.video = video;
+    this.fault = null;
+
+    // getUserMedia only exists in a secure context. Saying so beats a browser
+    // that simply reports the API as missing.
+    if (!window.isSecureContext) {
+      this.fail('insecure_origin', new Error('Page is not a secure context'));
+      return;
+    }
+    if (!navigator.mediaDevices?.getUserMedia) {
+      this.fail('unsupported', new Error('navigator.mediaDevices.getUserMedia is unavailable'));
+      return;
+    }
+
     try {
       this.setStatus('loading_model');
       const fileset = await FilesetResolver.forVisionTasks(`${import.meta.env.BASE_URL}mp/wasm`);
-      this.landmarker = await FaceLandmarker.createFromOptions(fileset, {
-        baseOptions: {
-          modelAssetPath: `${import.meta.env.BASE_URL}mp/models/face_landmarker.task`,
-          delegate: 'GPU',
-        },
-        runningMode: 'VIDEO',
-        numFaces: 1,
-        outputFaceBlendshapes: true,
-        outputFacialTransformationMatrixes: true,
-      });
+      this.landmarker = await this.createLandmarker(fileset);
+    } catch (err) {
+      this.fail('model_load', err);
+      return;
+    }
 
+    try {
       this.setStatus('requesting_camera');
       this.stream = await navigator.mediaDevices.getUserMedia({
         video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: 'user' },
         audio: false,
       });
+    } catch (err) {
+      this.fail(classifyCameraError(err), err);
+      return;
+    }
+
+    try {
       video.srcObject = this.stream;
       await video.play();
+    } catch (err) {
+      this.fail('playback', err);
+      return;
+    }
 
-      this.setStatus('running');
-      this.loop();
+    this.setStatus('running');
+    this.loop();
+  }
+
+  /** GPU first, CPU second. A machine without a usable GL delegate should run
+   *  the screening slower, not refuse to run it. */
+  private async createLandmarker(fileset: Awaited<ReturnType<typeof FilesetResolver.forVisionTasks>>) {
+    const opts = {
+      modelAssetPath: `${import.meta.env.BASE_URL}mp/models/face_landmarker.task`,
+    };
+    const common = {
+      runningMode: 'VIDEO' as const,
+      numFaces: 1,
+      outputFaceBlendshapes: true,
+      outputFacialTransformationMatrixes: true,
+    };
+    try {
+      return await FaceLandmarker.createFromOptions(fileset, {
+        baseOptions: { ...opts, delegate: 'GPU' },
+        ...common,
+      });
     } catch {
-      this.setStatus('error');
+      return await FaceLandmarker.createFromOptions(fileset, {
+        baseOptions: { ...opts, delegate: 'CPU' },
+        ...common,
+      });
     }
   }
 
