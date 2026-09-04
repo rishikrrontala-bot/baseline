@@ -13,14 +13,17 @@ import {
 } from '../lib/clinical/voms';
 import { scorePcss, pcssFromVomsSymptoms } from '../lib/clinical/pcss';
 import { recommendStage, RED_FLAGS, describeFindings } from '../lib/clinical/staging';
+import { summariseObjectives, gainVerdict, KIND_LABEL, type TaskObjective } from '../lib/clinical/oculomotor-report';
 
 export default function Findings({
   baseline,
   results,
+  objectives = [],
   onLeave,
 }: {
   baseline: VomsRatings;
   results: VomsTaskResult[];
+  objectives?: TaskObjective[];
   onLeave: () => void;
 }) {
   const voms = assessVoms(baseline, results);
@@ -110,6 +113,43 @@ export default function Findings({
             {VOMS_SYMPTOMS.map((s) => `${s} ${baseline[s]}`).join(', ')}. Everything above is
             measured against those, which is why the screening asks for them first.
           </p>
+
+          {objectives.length > 0 && (
+            <div className="mt-8 border-t border-[var(--line)] pt-5">
+              <h3 className="t-mono mb-1 text-[var(--ash)]">What the camera measured</h3>
+              <p className="t-body mb-4 max-w-[54ch]">
+                {summariseObjectives(objectives).headline} These sit beside the symptom ratings, not
+                instead of them — the ratings are the validated part of this screening.
+              </p>
+              <dl className="grid gap-3">
+                {objectives.map((o) => {
+                  const label = VOMS_TASKS.find((t) => t.id === o.taskId)?.label ?? o.taskId;
+                  const verdict = gainVerdict(o.gain);
+                  return (
+                    <div key={o.taskId} className="border-b border-[var(--line)] pb-3">
+                      <div className="flex items-baseline justify-between gap-4">
+                        <dt className="t-body text-[var(--ink)]">
+                          {label} <span className="text-[var(--ash)]">{KIND_LABEL[o.kind]}</span>
+                        </dt>
+                        {/* The word carries the verdict; the colour only echoes it. */}
+                        <dd className="t-mono shrink-0" style={{
+                          color: verdict === 'out_of_band' ? 'var(--terra)' : 'var(--ash)',
+                        }}>
+                          {o.gain.value === null
+                            ? 'not measured'
+                            : `${o.gain.value.toFixed(2)} ${verdict === 'out_of_band' ? 'outside range' : 'in range'}`}
+                        </dd>
+                      </div>
+                      <p className="t-body mt-1 max-w-[58ch] text-[var(--ash)]">
+                        {o.gain.note}
+                        {o.lag?.value !== null && o.lag !== null ? ` ${o.lag.note}` : ''}
+                      </p>
+                    </div>
+                  );
+                })}
+              </dl>
+            </div>
+          )}
 
           <div className="mt-8 border-t border-[var(--line)] pt-5">
             <p className="t-body text-[var(--ink)]">

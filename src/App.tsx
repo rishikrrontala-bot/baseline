@@ -3,6 +3,7 @@ import Hero from './components/Hero';
 import Threshold from './components/Threshold';
 import Prepare from './rooms/Prepare';
 import Screen from './rooms/Screen';
+import type { TaskObjective } from './lib/clinical/oculomotor-report';
 import Findings from './rooms/Findings';
 import { useRoom } from './lib/room';
 import { useViewportUnit } from './lib/motion';
@@ -14,6 +15,7 @@ export default function App() {
   const { room, go } = useRoom();
   const [baseline, setBaseline] = useState<VomsRatings | null>(null);
   const [results, setResults] = useState<VomsTaskResult[]>([]);
+  const [objectives, setObjectives] = useState<TaskObjective[]>([]);
 
   const leave = () => go('landing');
 
@@ -45,15 +47,16 @@ export default function App() {
           <Screen
             baseline={baseline}
             onLeave={leave}
-            onComplete={(r) => {
+            onComplete={(r, o) => {
               setResults(r);
+              setObjectives(o);
               go('findings');
             }}
           />
         )}
 
         {room === 'findings' && baseline && (
-          <Findings baseline={baseline} results={results} onLeave={leave} />
+          <Findings baseline={baseline} results={results} objectives={objectives} onLeave={leave} />
         )}
       </main>
     </>

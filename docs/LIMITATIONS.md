@@ -91,3 +91,41 @@ No user testing. No clinical validation. No patient data. No endorsement by
 any organisation, including any partner of the hackathon this was built for.
 The cut points are taken from published literature; the *implementation* of
 them has been checked only against unit tests we wrote ourselves.
+
+## The objective eye-movement measures
+
+Five of the seven tasks now produce a number from the camera as well as a
+symptom rating: a pursuit gain for smooth pursuit, a tracking accuracy for the
+two saccade tasks, and a vestibulo-ocular reflex gain for the two VOR tasks.
+Convergence is measured separately, in centimetres, and visual motion
+sensitivity has no objective measure at all — those two are excluded rather
+than given a number that would have nothing behind it.
+
+**What these numbers are not.** They are not a validated instrument. VOMS is
+validated as a *symptom-provocation* screening, and that is what the ratings
+are. A gain computed from a webcam at 30 frames a second, through a face-mesh
+model that was trained for animation rather than oculometry, is supporting
+evidence. It is not equivalent to an infrared eye tracker running at 500 Hz,
+and no clinical cut point published for laboratory oculometry transfers to it.
+The 0.7–1.3 band this app uses to say "inside the usual range" is a sanity
+band drawn from the ordinary description of healthy pursuit and VOR gain
+sitting near unity; it is not a diagnostic threshold and is not calibrated
+against a patient population.
+
+**How they were validated here.** The mathematics is tested against
+synthesised signals where the true answer is known in advance: a sinusoidal
+target with an eye following it at a set gain and a set lag, and a head
+rotation with eyes counter-rotating at a set gain. The tests confirm the code
+recovers those known values, rejects blink frames, and refuses when the target
+did not move, when the head did not move, when there are too few frames, or
+when the fit is too poor to mean anything.
+
+That is a test of the arithmetic, **not** of the claim that these numbers
+track concussion in real people. No human validation has been done. Doing it
+properly would mean recording a cohort against a reference eye tracker, and
+that is the work between this and anything a clinician should rely on.
+
+**Why "not measured" is printed rather than left blank.** A blank reads as
+normal. When the camera cannot produce a usable gain the app says so, gives
+the fit that made it refuse, and states plainly that failing to measure
+something is not the same as measuring it and finding nothing wrong.

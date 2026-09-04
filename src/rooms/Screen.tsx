@@ -2,8 +2,10 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import RoomFrame from '../components/RoomFrame';
 import RatingScale from '../components/RatingScale';
 import Stimulus from '../components/Stimulus';
+import { pursuitGain, phaseLagMs, vorGain, type OculoSample } from '../lib/clinical/oculomotor';
+import type { TaskObjective } from '../lib/clinical/oculomotor-report';
 import { Tracker, type TrackerSample } from '../lib/tracker';
-import { TASK_TIMING, isComplete } from '../lib/clinical/tasks';
+import { TASK_TIMING, isComplete, targetAt } from '../lib/clinical/tasks';
 import { estimateNpc, type ConvergenceSample, type NpcEstimate } from '../lib/clinical/npc';
 import { isDemo, DEMO_FAR_REFERENCE, DEMO_NEAR_BREAK } from '../lib/demo';
 import {
@@ -52,7 +54,7 @@ export default function Screen({
 }: {
   baseline: VomsRatings;
   onLeave: () => void;
-  onComplete: (results: VomsTaskResult[]) => void;
+  onComplete: (results: VomsTaskResult[], objectives: TaskObjective[]) => void;
 }) {
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<Phase>('brief');
@@ -65,12 +67,24 @@ export default function Screen({
   const trackerRef = useRef<Tracker | null>(null);
   const latest = useRef<TrackerSample | null>(null);
   const farRef = useRef<ConvergenceSample | null>(null);
+  // Frames for the task currently running. Cleared at every task boundary so
+  // one task's trace can never be scored as another's.
+  const traceRef = useRef<OculoSample[]>([]);
+  const objectivesRef = useRef<TaskObjective[]>([]);
+
+  const startedAtRef = useRef<number | null>(null);
+  const taskIdRef = useRef(VOMS_TASKS[0].id);
 
   const demo = isDemo();
   const tick = useMetronome();
   const task = VOMS_TASKS[index];
   const timing = TASK_TIMING[task.id];
   const paced = task.id.startsWith('vor_') || task.id === 'visual_motion_sensitivity';
+
+  // The sample callback is subscribed once for the whole room, so it reads the
+  // live task and start time through refs rather than a stale closure.
+  startedAtRef.current = startedAt;
+  taskIdRef.current = task.id;
 
   // One camera for the whole room; permission was already granted in Prepare.
   useEffect(() => {
@@ -79,6 +93,21 @@ export default function Screen({
     trackerRef.current = t;
     t.onSample = (s) => {
       latest.current = s;
+      // The stimulus is a pure function of elapsed time, so the target's
+      // position at this frame can be reconstructed exactly rather than
+      // plumbed through the canvas.
+      const began = startedAtRef.current;
+      if (began === null) return;
+      const elapsed = s.timestampMs - began;
+      if (elapsed < 0) return;
+      const target = targetAt(taskIdRef.current, elapsed);
+      traceRef.current.push({
+        t: elapsed,
+        target: { x: target.x, y: target.y },
+        gaze: s.gaze,
+        head: { yaw: s.head.yaw, pitch: s.head.pitch },
+        blink: s.blink,
+      });
     };
     if (videoRef.current) void t.start(videoRef.current);
     return () => {
@@ -137,6 +166,24 @@ export default function Screen({
   const allAnswered = answered === VOMS_SYMPTOMS.length;
 
   const commitRating = () => {
+    const trace = traceRef.current;
+    traceRef.current = [];
+    // Only the tasks whose objective the data model actually defines. A
+    // pursuit gain for convergence, whose target does not travel, would be a
+    // number with nothing behind it.
+    if (trace.length > 0 && (task.objective === 'gaze_trace' || task.objective === 'head_trace')) {
+      const vertical = task.id === 'saccades_vertical' || task.id === 'vor_vertical';
+      const axis = vertical ? ('vertical' as const) : ('horizontal' as const);
+      const isVor = task.objective === 'head_trace';
+      const isSaccade = task.id.startsWith('saccades_');
+      objectivesRef.current.push({
+        taskId: task.id,
+        kind: isVor ? 'vor' : isSaccade ? 'saccade' : 'pursuit',
+        gain: isVor ? vorGain(trace, axis) : pursuitGain(trace, axis),
+        // Phase lag is only meaningful against a continuously moving target.
+        lag: isVor || isSaccade ? null : phaseLagMs(trace, axis),
+      });
+    }
     const result: VomsTaskResult = {
       taskId: task.id,
       after: ratings as VomsRatings,
@@ -148,7 +195,7 @@ export default function Screen({
     setResults(next);
     setRatings({});
     setNpc(null);
-    if (index + 1 >= VOMS_TASKS.length) onComplete(next);
+    if (index + 1 >= VOMS_TASKS.length) onComplete(next, objectivesRef.current);
     else {
       setIndex(index + 1);
       setPhase('brief');
