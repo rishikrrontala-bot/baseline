@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Mark } from './Logo';
 import { SCREENING_ROOMS, type Room } from '../lib/room';
 
 /*  The chrome every dim room shares: which room you are standing in, the one
@@ -26,8 +27,10 @@ export default function RoomFrame({
     >
       {/* Which room you are standing in. Navigation, not a label on the heading. */}
       <header className="flex items-start justify-between gap-6">
-        <nav aria-label="Screening progress">
-          <ol className="flex flex-wrap items-center gap-x-5 gap-y-2">
+        <div className="flex items-center gap-5">
+          <Mark className="w-[22px] shrink-0 text-[var(--ash)] print:text-black" title="Baseline" />
+          <nav aria-label="Screening progress">
+            <ol className="flex flex-wrap items-center gap-x-5 gap-y-2">
             {SCREENING_ROOMS.map((r) => {
               const here = r.id === room;
               return (
@@ -43,8 +46,9 @@ export default function RoomFrame({
                 </li>
               );
             })}
-          </ol>
-        </nav>
+            </ol>
+          </nav>
+        </div>
 
         <button
           type="button"

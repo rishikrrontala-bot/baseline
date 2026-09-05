@@ -1,4 +1,5 @@
 import Aperture from './Aperture';
+import Logo from './Logo';
 
 export default function Hero({ onEnter }: { onEnter: () => void }) {
   return (
@@ -8,6 +9,7 @@ export default function Hero({ onEnter }: { onEnter: () => void }) {
     >
       {/* ── The claim, set wide ──────────────────────────────────────────── */}
       <div>
+        <Logo className="mb-[clamp(28px,5.5vh,54px)] text-ink" size={21} />
         <h1 className="t-display" style={{ fontSize: 'clamp(44px, 7.3vw, 116px)' }}>
           <span className="line-mask">
             <span className="word">A concussion hides.</span>
